@@ -169,9 +169,12 @@ def main():
     note = (drange + ' 공고 <b>' + str(total) + '건</b> 정리 '
             '(끌어올림 등으로 다시 올라온 글 <b>' + str(dupes) + '건</b>은 하나로 묶음)')
 
+    # posts.js에 데이터 분리 저장 (index.html은 가볍게 유지)
+    posts_js_path = os.path.join(ROOT, 'posts.js')
+    open(posts_js_path, 'w', encoding='utf-8').write('var POSTS = ' + posts_json + ';')
+
     html_path = os.path.join(ROOT, 'index.html')
     html = open(html_path, encoding='utf-8').read()
-    html = replace_posts_array(html, posts_json)
     html, n1 = re.subn(
         r'\d{4}-\d{2}-\d{2} ~ \d{4}-\d{2}-\d{2} 공고 <b>\d+건</b> 정리 '
         r'\(끌어올림 등으로 다시 올라온 글 <b>\d+건</b>은 하나로 묶음\)', note, html)
