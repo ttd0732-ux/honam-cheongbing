@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>호남신학대 청빙 도우미</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Serif+KR:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#edf0f6; --surface:#ffffff; --surface2:#e7ecf5; --ink:#131f38; --muted:#55648a;
+  --line:#d3dcee; --accent:#12295e; --accent-ink:#ffffff; --gold:#c19a2e; --gold-ink:#3a2c05;
+  --amber:#b97f16; --amber-bg:#fdf0d3;
+  --red:#c0271b; --red-bg:#fde3df; --chip:#e3e9f4; --shadow:0 14px 34px rgba(13,27,62,.14);
+  --navy1:#081233; --navy2:#12295e; --navy3:#1d3f8f;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#070d1e; --surface:#101a33; --surface2:#16233f; --ink:#e9edf8; --muted:#9fadd0;
+    --line:#26345c; --accent:#31549f; --accent-ink:#ffffff; --gold:#d9b84a; --gold-ink:#241c03;
+    --amber:#e0aa3e; --amber-bg:#3a2f14;
+    --red:#ff7a6b; --red-bg:#451d18; --chip:#16233f; --shadow:0 14px 34px rgba(0,0,0,.55);
+    --navy1:#04081a; --navy2:#0a1740; --navy3:#142c66;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px 56px}
+
+/* hero header */
+header.top{position:relative;overflow:hidden;margin:14px 0 4px;border-radius:22px;padding:30px 26px 26px;color:#fff;background:linear-gradient(128deg,var(--navy1) 0%,var(--navy2) 52%,var(--navy3) 100%);box-shadow:var(--shadow)}
+header.top::after{content:"";position:absolute;right:-70px;top:-70px;width:250px;height:250px;border-radius:50%;border:44px solid rgba(193,154,46,.20);pointer-events:none}
+header.top>*{position:relative;z-index:1}
+.hero-kicker{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--gold);border:1px solid rgba(193,154,46,.55);border-radius:999px;padding:4px 11px;margin-bottom:14px}
+h1{font-family:"Noto Serif KR",serif;font-weight:900;font-size:clamp(32px,6.4vw,52px);letter-spacing:-.02em;line-height:1.14;margin:0 0 10px;color:#fff}
+h1 .gold{color:var(--gold)}
+.basis{color:#c6d2ee;font-size:14.5px;line-height:1.65;margin:0 0 16px;max-width:640px}
+.basis strong{color:#fff;font-weight:800}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.updatepill{display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:var(--gold-ink);font-weight:800;font-size:13.5px;border-radius:999px;padding:7px 14px}
+.updatepill .dot{width:8px;height:8px;border-radius:50%;background:#7c2d12;flex:none}
+.contactpill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);color:#fff;font-weight:700;font-size:13.5px;border-radius:999px;padding:7px 14px;text-decoration:none}
+.contactpill:hover{background:rgba(255,255,255,.22)}
+.datanote{margin:0 0 18px;padding:11px 15px;border:1px solid rgba(193,154,46,.55);background:rgba(255,255,255,.08);border-radius:12px;color:#d7e1f7;font-size:13.5px;line-height:1.65}
+.datanote b{color:var(--gold);font-weight:800}
+.searchbox{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid transparent;border-radius:14px;padding:6px 6px 6px 16px;box-shadow:0 10px 26px rgba(0,0,0,.28)}
+.searchbox svg{flex:none}
+.searchbox input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#131f38;font-size:16px;padding:10px 0}
+.searchbox input::placeholder{color:#7a87a5}
+.searchbox .go{border:0;background:var(--gold);color:var(--gold-ink);font-weight:800;border-radius:10px;padding:10px 20px;font-size:15px}
+@media (max-width:640px){header.top{padding:24px 18px 20px;border-radius:18px}}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 4px}
+.stat{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:16px;padding:18px 18px 16px;box-shadow:0 8px 22px rgba(13,27,62,.09)}
+.stat .num{font-family:"Noto Serif KR",serif;font-size:42px;font-weight:900;line-height:1;color:var(--accent)}
+.stat.hot .num{color:var(--red)}
+.stat .lbl{margin-top:8px;font-size:13px;color:var(--muted);font-weight:700}
+@media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* sticky filters */
+.filters{position:sticky;top:0;z-index:40;background:var(--bg);padding:12px 0 10px;margin-top:8px;border-bottom:1px solid var(--line)}
+.fgroup{margin:7px 0}
+.fgroup .gname{display:inline-block;font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.04em;margin:0 8px 4px 0;vertical-align:top;padding-top:7px;min-width:34px}
+.chips{display:inline}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:6px 11px;font-size:13px;font-weight:500;margin:0 5px 6px 0}
+.chip .cnt{color:var(--muted);font-size:11px;margin-left:3px}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip[aria-pressed="true"] .cnt{color:var(--accent-ink);opacity:.75}
+.frow{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:8px}
+.check{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--accent)}
+.sortsel{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sortsel select{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:7px 9px;font-size:13.5px}
+.clearbtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:9px;padding:7px 12px;font-size:13.5px;font-weight:600}
+.fcount{font-size:13.5px;color:var(--muted);font-weight:700}
+@media (max-width:640px){.filters{max-height:46vh;overflow:auto}}
+
+/* guide + regions */
+.guide{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:14px 16px;margin:16px 0 12px;font-size:14px;line-height:1.65}
+.guide b{color:var(--accent)}
+.regions{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 6px;align-items:center}
+.regions .rname{font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.04em;margin-right:2px}
+.rbtn{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--ink)}
+.rbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* list */
+.listhead{display:flex;align-items:baseline;justify-content:space-between;margin:18px 0 10px}
+.listhead h2{font-family:"Noto Serif KR",serif;font-size:20px;margin:0}
+.listhead .n{color:var(--muted);font-size:14px;font-weight:700}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:760px){.cards{grid-template-columns:1fr}}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 44px 14px 16px;text-align:left;width:100%;color:var(--ink);box-shadow:0 4px 14px rgba(13,27,62,.07);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 16px 32px rgba(13,27,62,.18)}
+.card{cursor:pointer;touch-action:manipulation}
+.card:active{transform:translateY(-1px);border-color:var(--accent);box-shadow:0 8px 20px rgba(13,27,62,.16)}
+@media (prefers-reduced-motion: reduce){.card{transition:none}.card:hover{transform:none}}
+.card .church{font-weight:800;font-size:16.5px}
+.card .church .region{color:var(--accent);font-weight:700}
+.badge{display:inline-block;font-size:10.5px;font-weight:800;border-radius:6px;padding:2px 6px;vertical-align:2px;margin-left:6px}
+.badge.new{background:var(--gold);color:var(--gold-ink)}
+.badge.closed{background:var(--red-bg);color:var(--red)}
+.badge.urgent{background:var(--red);color:#fff;font-size:12px;padding:4px 9px;border-radius:8px;box-shadow:0 3px 10px rgba(192,39,27,.45);letter-spacing:.02em}
+.card .title{font-size:14.5px;font-weight:600;line-height:1.45;margin:5px 0 8px}
+.card .meta{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.tag{font-size:11.5px;font-weight:600;background:var(--surface2);border:1px solid var(--line);color:var(--ink);border-radius:7px;padding:3px 7px}
+.card .summary{font-size:13px;line-height:1.6;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0}
+.card .foot{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--muted)}
+.dday{font-weight:800;border-radius:7px;padding:3px 8px;background:var(--amber-bg);color:var(--amber)}
+.dday.soon{background:var(--red-bg);color:var(--red)}
+.dday.always{background:var(--surface2);color:var(--muted)}
+.star{position:absolute;top:10px;right:10px;border:0;background:transparent;font-size:22px;line-height:1;color:var(--muted);padding:6px;border-radius:8px}
+.star.on{color:var(--amber)}
+.more{display:block;margin:20px auto 0;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;border-radius:12px;padding:12px 30px;font-size:15px}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:14px;padding:34px 20px;text-align:center;color:var(--muted);font-size:14.5px;line-height:1.7}
+
+/* urgent section */
+.urgent-sec{margin:20px 0 4px;background:linear-gradient(135deg,#fdf0ec,#fde3df);border:1.5px solid #f0b3a9;border-radius:18px;padding:16px 16px 6px}
+@media (prefers-color-scheme: dark){.urgent-sec{background:linear-gradient(135deg,#2c130f,#3a1a14);border-color:#6e3227}}
+.urgent-sec .listhead{margin:0 0 12px}
+.urgent-sec .listhead h2{color:var(--red);font-size:21px}
+.urgent-sec .cards{margin-bottom:10px}
+.urgent-sec .card{border-color:#f0b3a9}
+.urgent-sec .card:hover{border-color:var(--red)}
+
+/* share buttons */
+.sharebtn{display:inline-flex;align-items:center;gap:5px;border:1px solid #e8c33c;background:#fee500;color:#3a1d1d;font-weight:800;font-size:12px;border-radius:8px;padding:5px 10px}
+.sharebtn:hover{filter:brightness(.96)}
+.card .sharebtn{margin-left:auto}
+.mbtns .sharebtn{font-size:14px;padding:11px 16px;border-radius:11px}
+
+/* my condition */
+.mycondbtn{border:1.5px solid var(--gold);background:var(--surface);color:var(--ink);border-radius:9px;padding:7px 13px;font-size:13.5px;font-weight:800}
+.mycondbtn[aria-expanded="true"]{background:var(--gold);color:var(--gold-ink)}
+.mycond-panel{display:none;margin:14px 0 4px;background:var(--surface);border:1.5px solid var(--gold);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.mycond-panel.open{display:block}
+.mycond-panel h3{font-family:"Noto Serif KR",serif;font-size:17px;margin:0 0 4px}
+.mycond-panel .note{font-size:12.5px;color:var(--muted);line-height:1.6;margin:0 0 14px}
+.mcgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (max-width:640px){.mcgrid{grid-template-columns:1fr}}
+.mcfield label{display:block;font-size:12.5px;font-weight:800;color:var(--muted);margin-bottom:5px}
+.mcfield input,.mcfield select{width:100%;background:var(--surface2);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:15px;font:inherit}
+.mcbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.mcbtns .apply{border:0;background:var(--accent);color:var(--accent-ink);font-weight:800;border-radius:10px;padding:11px 20px;font-size:14.5px}
+.mcbtns .reset{border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;border-radius:10px;padding:11px 16px;font-size:14.5px}
+.mcactive{display:none;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0 0;background:var(--amber-bg);border:1px solid var(--gold);color:var(--ink);border-radius:12px;padding:10px 14px;font-size:13.5px;font-weight:700}
+.mcactive.on{display:flex}
+.mcactive button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:5px 11px;font-weight:700;font-size:12.5px}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);background:#191919;color:#fff;font-size:14px;font-weight:700;line-height:1.5;border-radius:12px;padding:12px 18px;box-shadow:0 12px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:120;max-width:min(92vw,480px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion: reduce){.toast{transition:none}}
+
+/* footer */
+footer{margin-top:36px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:12.5px;line-height:1.8}
+footer b{color:var(--ink)}
+
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(10,16,12,.55);z-index:80;display:none;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:var(--surface);width:min(760px,100%);max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:22px 20px 30px}
+@media (min-width:760px){.overlay{align-items:center}.modal{border-radius:20px}}
+.modal h3{font-family:"Noto Serif KR",serif;font-size:21px;line-height:1.4;margin:0 44px 4px 0}
+.modal .mchurch{color:var(--accent);font-weight:800;font-size:14px}
+.mclose{position:sticky;top:0;float:right;border:1px solid var(--line);background:var(--surface);border-radius:10px;width:38px;height:38px;font-size:17px;color:var(--ink)}
+.msec{margin-top:18px}
+.msec h4{font-size:13px;font-weight:800;letter-spacing:.05em;color:var(--muted);margin:0 0 8px}
+.msec ul{margin:0;padding-left:18px;font-size:14px;line-height:1.75}
+.kv{font-size:14px;line-height:1.75}
+.kv b{display:inline-block;min-width:74px;color:var(--muted);font-weight:700}
+.bodybox{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13.5px;line-height:1.8;white-space:pre-wrap;word-break:break-word}
+.mbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.mbtns a,.mbtns button{border-radius:11px;padding:11px 16px;font-size:14px;font-weight:700;text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.mbtns .primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.togglebody{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:700;font-size:13.5px;color:var(--ink)}
+
+/* detail view (modal) */
+.mmeta{display:flex;flex-wrap:wrap;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--muted);margin:2px 44px 8px 0;line-height:1.6}
+.mmeta .sep{opacity:.55;font-weight:400}
+.mmeta .st-open{color:var(--accent);font-weight:800}
+.mmeta .st-closed{color:var(--red);font-weight:800}
+.modal h3{margin:0 44px 8px 0}
+.rolebadges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.rolebadge{display:inline-block;background:var(--accent);color:var(--accent-ink);font-size:12.5px;font-weight:800;border-radius:8px;padding:4px 10px}
+.rolebadge.sub{background:var(--surface2);color:var(--ink);border:1px solid var(--line)}
+.kakaocopy{display:inline-flex;align-items:center;gap:6px;border:1px solid #e8c33c;background:#fee500;color:#3a1d1d;font-weight:800;font-size:14.5px;border-radius:11px;padding:11px 18px}
+.kakaocopy:hover{filter:brightness(.96)}
+.copyrow{margin:2px 0 4px}
+.condchips{display:flex;flex-wrap:wrap;gap:7px}
+.condchip{display:inline-block;background:var(--amber-bg);border:1px solid var(--gold);color:var(--ink);font-size:13px;font-weight:800;border-radius:999px;padding:6px 12px}
+.locbox{display:flex;gap:12px;align-items:flex-start;background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.locpin{font-size:22px;line-height:1.2;flex:none}
+.locname{font-weight:800;font-size:15px}
+.locregion{color:var(--muted);font-weight:600;font-size:13px;margin-left:4px}
+.locaddr{font-size:13.5px;color:var(--muted);line-height:1.6;margin-top:3px;word-break:break-word}
+.kakaomap{display:inline-block;margin-top:9px;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:13.5px;border-radius:9px;padding:8px 14px;text-decoration:none}
+.kakaomap:hover{filter:brightness(1.12)}
+.msummary{font-size:14.5px;line-height:1.75;margin:0}
+.secbody{font-size:14px;line-height:1.75}
+.secbody ul{margin:0;padding-left:18px}
+.secbody li{margin:2px 0}
+.notstated{color:var(--muted)}
+.dline{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.dtext{font-weight:700}
+.origlink{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:20px;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-weight:800;font-size:15px;color:var(--accent);text-decoration:none}
+.origlink:hover{border-color:var(--accent)}
+.favbig{display:block;width:100%;margin-top:10px;border:1.5px solid var(--gold);background:var(--surface);color:var(--ink);font-weight:800;font-size:15px;border-radius:12px;padding:13px 16px}
+.favbig.on{background:var(--gold);color:var(--gold-ink)}
+.disclaimer{margin:18px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.7;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="hero-kicker">HONAM THEOLOGICAL UNIVERSITY</span>
+    <h1>호남신학대 <span class="gold">청빙 도우미</span></h1>
+    <p class="basis">이 앱은 <strong>호남신학대학교 청빙게시판</strong>을 토대로 만든 앱입니다. 게시판에 올라온 청빙 공고를 직분·지역·부서별로 모아 한눈에 볼 수 있게 정리했습니다.</p>
+    <div class="hero-meta">
+      <span class="updatepill"><span class="dot" aria-hidden="true"></span>매일 아침 6시경에 업데이트 됩니다</span>
+      <a class="contactpill" href="mailto:ttd0732@hanmail.net">앱 문의) shs목사 · ttd0732@hanmail.net</a>
+    </div>
+    <p class="datanote">2026-09-12 ~ 2026-10-12 공고 <b>105건</b> 정리 (끌어올림 등으로 다시 올라온 글 <b>29건</b>은 하나로 묶음) · 원 자료 호남신학대학교 청빙게시판</p>
+    <form class="searchbox" id="searchForm" role="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="#12295e" stroke-width="2"/><path d="M20 20l-3.8-3.8" stroke="#12295e" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="교회 이름, 지역, 부서 검색" aria-label="교회 이름, 지역, 부서 검색" autocomplete="off">
+      <button class="go" type="submit">검색</button>
+    </form>
+  </header>
+
+  <section class="stats" aria-label="공고 통계">
+    <div class="stat"><div class="num" id="stOpen">–</div><div class="lbl">초빙 중인 공고</div></div>
+    <div class="stat"><div class="num" id="stNew">–</div><div class="lbl">최근 7일 새 공고</div></div>
+    <div class="stat"><div class="num" id="stFull">–</div><div class="lbl">전임 자리</div></div>
+    <div class="stat hot"><div class="num" id="stDue">–</div><div class="lbl">7일 안에 마감</div></div>
+  </section>
+
+  <section class="filters" id="filters" aria-label="공고 필터"></section>
+
+  <section class="guide">
+    <b>내 조건으로 찾기</b> — 위에서 원하는 <b>직분 · 형태 · 지역 · 부서 · 대우</b>를 눌러 보세요. 마음에 드는 공고는 카드 오른쪽 위 <b>★</b>를 눌러 담아 두고, ‘★ 관심 공고만’을 켜면 담은 공고만 모아서 볼 수 있습니다.
+  </section>
+
+  <nav class="regions" id="regions" aria-label="지역별 한눈에"></nav>
+
+  <section class="mycond-panel" id="mycondPanel" aria-label="내 조건 입력">
+    <h3>내 조건에 맞는 공고</h3>
+    <p class="note">나이·원하는 직분·원하는 지역·희망 사례비를 넣으면 지원 가능한 공고만 골라 보여드립니다. 입력한 내용은 이 기기(브라우저)에만 저장되고 서버로 전송되지 않습니다.</p>
+    <div class="mcgrid">
+      <div class="mcfield"><label for="mcAge">나이 (만 나이)</label><input id="mcAge" type="number" inputmode="numeric" min="20" max="90" placeholder="예: 38"></div>
+      <div class="mcfield"><label for="mcPay">희망 사례비 · 월 최소 (만원)</label><input id="mcPay" type="number" inputmode="numeric" min="0" step="10" placeholder="예: 200"></div>
+      <div class="mcfield"><label for="mcRole">원하는 직분</label><select id="mcRole"></select></div>
+      <div class="mcfield"><label for="mcRegion">원하는 지역</label><select id="mcRegion"></select></div>
+    </div>
+    <div class="mcbtns">
+      <button type="button" class="apply" id="mcApply">이 조건으로 공고 보기</button>
+      <button type="button" class="reset" id="mcReset">조건 지우기</button>
+    </div>
+  </section>
+  <div class="mcactive" id="mcActive"><span id="mcActiveText"></span><button type="button" id="mcOff">내 조건 해제</button></div>
+
+  <section class="urgent-sec" id="urgentSec" hidden>
+    <div class="listhead"><h2>마감 임박 공고</h2><span class="n" id="urgentCount"></span></div>
+    <div class="cards" id="urgentCards"></div>
+  </section>
+
+  <section>
+    <div class="listhead"><h2>청빙 공고</h2><span class="n" id="listCount"></span></div>
+    <div class="cards" id="cards"></div>
+    <div id="emptyBox"></div>
+    <button class="more" id="moreBtn" type="button">더 보기</button>
+  </section>
+
+  <footer>
+    <p><b>비영리 정보 정리 서비스입니다.</b><br>
+    원 자료: 호남신학대학교 청빙게시판. 공고의 책임은 각 교회에 있으며 정확한 내용은 반드시 원문에서 확인해 주세요.<br>
+    요약·분류는 자동으로 만든 것이라 틀릴 수 있습니다.<br>
+    자료 업데이트 날: 2026-10-12<br>
+    <b>앱 문의) shs목사 · <a href="mailto:ttd0732@hanmail.net">ttd0732@hanmail.net</a></b></p>
+  </footer>
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal" id="modal"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+var POSTS = [{"n":9373,"title":"순천성북교회에서 함께 사역할 부목사님을 청빙합니다.","date":"2026-10-11 21:45:48","views":120,"church":"순천성북교회","region":"전남 순천시","role":"부목사","employment":"전임(추정)","dept":"초등부, 찬양 인도","pay":"사택 제공, 월 300만원, 휴가비·명절 상여금, 퇴직금 지급","deadlineText":"26년 10월 31일까지","deadline_parsed":"2026-10-31","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=1&w_id=24587&m=","summary":"전남 순천시 순천성북교회(예장통합·순천노회, 안성은 목사)에서 부목사 1명을 청빙. 초등부·찬양인도 담당, M.Div 졸업 목사 자격. 사택·월 300만원·휴가비·명절상여·퇴직금. 마감 2026-10-31, 이메일 접수.","qual":"본 교단 신학대학원(M.Div.) 졸업한 목사; 초등부·찬양인도 경험자 우대","docs":"unknown","contact":"le1755@hanmail.net / 010-2210-0825","address":"순천시 삼산로 4","homepage":"","denomination":"예장통합","presbytery":"순천노회","start":"면접 후 결정"},{"n":9372,"title":"의정부교회에서 준전임 사역자를 청빙합니다.","date":"2026-10-11 20:07:15","views":57,"church":"의정부교회","region":"경기도 의정부시","role":"준전임목사 혹은 준전임전도사 1명","employment":"준전임","dept":"교육부서, 찬양팀지도, 예배준비","pay":"월 150만원 / 출근: 토·주일·금요기도회(월1회)·수요저녁예배(협의)","deadlineText":"청빙시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=1&w_id=24586&m=","summary":"경기도 의정부시 의정부교회(예장통합·서울강북노회)에서 준전임 목사 또는 전도사 1명을 청빙. 교육부서·찬양팀 지도·예배준비, 월 150만원, 토·주일 출근. 이메일 접수.","qual":"교단 신학대학원 졸업예정자 및 졸업자, 교육목사 가능","docs":"이력서, 자기소개서, 가족관계증명서(하나의 파일로)","contact":"k8736049@naver.com / 010-6549-0760(한글표기 해독)","address":"경기도 의정부시 가능로136번길 7","homepage":"","denomination":"대한예수교장로회(통합)","presbytery":"서울강북노회","start":"unknown"},{"n":9371,"title":"광주광림교회에서 부목사님 한 분과, 전임전도사님 한 분을 정중히 모십니다","date":"2026-10-11 18:31:04","views":108,"church":"광주광림교회","region":"광주광역시 북구","role":"부목사 1명, 전임전도사 1명","employment":"전임","dept":"부목사-교구 및 행정, 전임전도사-교구 및 교육부","pay":"부목사 연봉 3000만원(사택관리비·차량주유비·목회활동비 포함)+사택제공(32평형 아파트)+차량제공(승합차); 전임전도사 연봉 2500만원+차량제공(승합차·차량주유비)","deadlineText":"청빙시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=1&w_id=24585&m=","summary":"광주광역시 북구 광주광림교회(예장통합·광주노회)에서 부목사 1명(교구·행정)과 전임전도사 1명(교구·교육부)을 청빙. 부목사 연봉 3000만원+사택·차량, 전임전도사 연봉 2500만원+차량. 이메일 접수.","qual":"본 교단이 인정하는 신학대학원 졸업자","docs":"unknown","contact":"hyo6267@hanmail.net / 010-6338-6267 (담임목사 12월 위임식 예정)","address":"광주광역시 북구 자동차로 47번길 16","homepage":"www.kwanglim.or.kr","denomination":"대한예수교장로회 통합","presbytery":"광주노회","start":"unknown"},{"n":9370,"title":"제31보병사단 삼일교회에서 전도사님을 모십니다.","date":"2026-10-09 17:34:59","views":1106,"church":"제31보병사단 삼일교회","region":"광주광역시 북구 (군부대 교회)","role":"전도사","employment":"unknown","dept":"교육부서(유초등부·중고등부), 찬양인도(수요예배)","pay":"월 150만원, 재학생 매학기 장학금 150만원, 여름휴가비 20만원, 명절 각 10만원","deadlineText":"not stated","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=1&w_id=24584&m=","summary":"광주 북구 제31보병사단 삼일교회(육군군인교회·초교파)에서 군선교사역 전도사를 청빙. 유초등부·중고등부 교육과 수요예배 찬양인도, 수·주말 출근. 월 150만원+장학금·휴가비·명절비. 이메일 접수.","qual":"정통교단 신학교 재학 또는 졸업자, 군선교 사역에 제한 없는 자, 나이·성별 무관","docs":"이력서(사진), 자기소개서, 졸업/재학증명서","contact":"german96@naver.com (접수 후 문자 요망) / 010-7223-6001","address":"광주광역시 북구 우치로 304","homepage":"","denomination":"대한민국 육군군인교회(초교파)","presbytery":"-","start":"11월 말~12월 초"},{"n":9369,"title":"[끌어올림]부목사님 및 전임 전도사님을 모십니다","date":"2026-10-09 11:52:59","views":1157,"church":"여수광림교회","region":"전남 여수시","role":"부목사, 전임전도사","employment":"전임","dept":"교구 및 교육부서","pay":"교회 내규에 따름, 사택 제공","deadlineText":"빠를수록 감사합니다","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=1&w_id=24583&m=","summary":"전남 여수시 여수광림교회에서 부목사와 전임전도사를 청빙. 교구·교육부서 담당, 신대원 졸업·40세 전후·운전면허 자격. 사택 제공, 사례비는 교회 내규. 이메일 접수.","qual":"본 교단 신대원 졸업자, 40세 전후, 1종 보통 운전면허, 찬양인도 가능자 환영","docs":"이력서, 자기소개서(가족사진 첨부), 최근 설교 동영상 1편 (하나의 파일로)","contact":"praise0429@hanmail.net / 061-653-2552","address":"unknown","homepage":"","denomination":"대한예수교장로회","presbytery":"unknown","start":"unknown"},{"n":9368,"title":"(끌어올림) 광양중앙교회에서 전임사역자(부목사님, 전임전도사님)를 청빙합니다.","date":"2026-10-08 23:16:43","views":1773,"church":"광양중앙교회","region":"전남 광양시","role":"부목사/전임전도사 1명(목사안수 가능)","employment":"전임","dept":"교육부서, 돌봄사역","pay":"교회가 정한 사례비, 사택 제공","deadlineText":"사역자 청빙까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=1&w_id=24582&m=","summary":"전남 광양시 광양중앙교회(예장통합)에서 전임사역자 1명(부목사 또는 전임전도사, 목사안수 가능)을 청빙. 교육부서·돌봄사역 담당. 사택 제공, 사례비는 교회 규정. 이메일 접수.","qual":"본교단 재학생 및 졸업생, 30세~45세 전후","docs":"이력서, 자기소개서, 가족관계증명서 (이메일, 하나의 파일로)","contact":"wandong@kakao.com / 010-2224-3391 김동완 목사","address":"unknown","homepage":"http://www.gylife.net","denomination":"예장통합","presbytery":"unknown","start":"unknown"},{"n":9367,"title":"(끌어올림) 영광교회에서 부목사님 또는 전임 전도사님을 청빙합니다.","date":"2026-10-08 19:54:00","views":734,"church":"영광교회(남원)","region":"전북특별자치도 남원시","role":"부목사/전임전도사 1명","employment":"전임","dept":"교구 및 교육부서 등","pay":"교회 규정에 따라 지급 — 복리후생비/차량비/도서비/명절비/휴가비/건강보험료/퇴직금/사택 아파트 제공/사택관리비 전액/총회연금 전액","deadlineText":"청빙시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=1&w_id=24580&m=","summary":"전북 남원시 영광교회(예장통합·남원노회)에서 부목사 또는 전임전도사 1명을 청빙. 교구·교육부서 담당, M.Div 졸업·운전면허 자격. 사택 아파트·관리비 전액·총회연금 등 복리후생. 이메일 접수.","qual":"본 교단 신학대학원(M.Div) 졸업자, 본 교단 목사 또는 전임전도사, 1종 보통 운전면허","docs":"이력서, 자기소개서, 가족관계증명서(또는 주민등록등본), 설교영상 1개","contact":"altaschith@naver.com (하나의 pdf 파일로) / 010-4136-4413 (담당 부목사)","address":"전북특별자치도 남원시 동림로 113-9","homepage":"http://www.yg.or.kr","denomination":"예장통합","presbytery":"남원노회","start":"12월 (면담 후 조정 가능)"},{"n":9366,"title":"[순천천보교회]에서 전임사역자를 청빙합니다.","date":"2026-10-08 17:56:29","views":672,"church":"순천천보교회","region":"전남 순천시","role":"부목사/전임전도사","employment":"전임","dept":"교구, 청년부","pay":"교회내규에 따라 (사택비 일부 지원)","deadlineText":"청빙 완료 시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=1&w_id=24579&m=","summary":"전남 순천시 순천천보교회(예장통합·순천남노회, 오상영 목사)에서 부목사 또는 전임전도사를 청빙. 교구·청년부 담당, 신대원 졸업·50세 이하 자격. 사택비 일부 지원. 이메일 접수.","qual":"교단 소속 신대원 졸업생 이상, 만 50세 이하","docs":"이력서, 자기소개서, 가족관계증명서","contact":"eipsul37@naver.com (제출 후 010-5065-8172로 문자)","address":"순천시 하풍2길 12","homepage":"","denomination":"예장(통합)","presbytery":"순천남노회","start":"unknown"},{"n":9365,"title":"전주신동교회에서 전임교역자(부목사 또는 전임전도사)를 모십니다.","date":"2026-10-08 15:54:44","views":841,"church":"전주신동교회","region":"전북 전주시 덕진구","role":"부목사/전임전도사 1명","employment":"전임","dept":"전임사역, 교육부서","pay":"교회내규에 따라 지급 (사택 및 관리비 제공, 총회연금 지급)","deadlineText":"청빙 완료시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=1&w_id=24578&m=","summary":"전북 전주시 덕진구 전주신동교회(예장통합·전북노회)에서 전임교역자 1명(부목사 또는 전임전도사)을 청빙. 신대원 졸업(예정)·50세 이하·운전면허 자격. 사택·관리비·총회연금 제공. 이메일 접수.","qual":"본 교단 신대원 졸업자(졸업예정자, 50세 이하), 1종 보통 운전면허, 찬양인도 가능자 우대","docs":"이력서, 자기소개서, 가족관계증명서 (하나의 파일로)","contact":"106malakas@hanmail.net (접수 후 문자 요망) / 010-3851-6746(한글표기 해독)","address":"전북 전주시 덕진구 심방죽2길 13","homepage":"www.sdch.kr","denomination":"예장통합","presbytery":"전북노회","start":"11월 중순 (조정 가능)"},{"n":9364,"title":"(끌어올림) 여수덕충교회에서 아동부 파트사역자 1분 모십니다.","date":"2026-10-08 13:48:50","views":712,"church":"여수덕충교회","region":"전남 여수시","role":"파트사역자(전도사/목사) 1명","employment":"파트","dept":"아동부","pay":"교회 내규에 따름","deadlineText":"청빙시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=1&w_id=24577&m=","summary":"전남 여수시 여수덕충교회(예장통합·여수노회)에서 아동부 파트사역자 1명을 청빙. 신대원 재학/졸업(전도사·목사) 자격, 사례비는 교회 내규. 이메일 접수.","qual":"신대원 재학생, 신대원 졸업자(전도사 또는 목사)","docs":"이력서, 자기소개서, 가족관계증명서(기혼자인 경우)","contact":"jongjae1@gmail.com / 010-8247-1768 (여수엑스포역 도보 3분)","address":"전남 여수시 덕충안길 89","homepage":"","denomination":"예장통합","presbytery":"여수노회","start":"면담 후 결정"},{"n":9362,"title":"광주동암교회에서 교육전도사님을 모십니다.","date":"2026-10-08 10:51:45","views":189,"church":"광주동암교회","region":"광주광역시 북구","role":"교육전도사","employment":"unknown","dept":"아동부","pay":"교회규정에 따라","deadlineText":"청빙완료까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24575&m=","summary":"광주광역시 북구 광주동암교회(광주동노회)에서 아동부 교육전도사를 청빙. 교단 학부·신대원 재학생 자격, 사례비는 교회 규정. 이메일 접수.","qual":"본 교단 학부 및 신대원 재학생","docs":"이력서 1통, 자기소개서 1통 (하나의 파일로)","contact":"qusgppals2@naver.com / 062-513-7620","address":"광주광역시 북구 동운로 213번길 22","homepage":"http://www.gwangjudongam.com","denomination":"unknown","presbytery":"광주동노회","start":"협의"},{"n":9361,"title":"[순천북부교회] 부목사를 청빙합니다.","date":"2026-10-08 10:38:06","views":388,"church":"순천북부교회","region":"전남 순천시","role":"부목사 1명","employment":"전임(추정)","dept":"초원(교구), 청소년부","pay":"목사 임직 호봉제, 사택 있음(매곡동·북초등학교 학군)","deadlineText":"26.10.25(주일)","deadline_parsed":"2026-10-25","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24574&m=","summary":"전남 순천시 순천북부교회(순천노회)에서 부목사 1명을 청빙. 교구(초원)·청소년부 담당, 45세 이하·기혼·운전면허 자격. 목사 임직 호봉제+사택. 마감 2026-10-25, 이메일 접수.","qual":"45세 이하, 기혼(결혼예정자 포함), 운전면허 1종 보통","docs":"이력서, 자기소개서 (이메일)","contact":"pastornhs@hanmail.net / 문의: 남혁성 목사 010-9669-6288","address":"순천시 서면 선평길 17","homepage":"","denomination":"unknown","presbytery":"순천노회","start":"27년 1월부터(조정가능)"},{"n":9360,"title":"도화교회 담임목사를 청빙합니다","date":"2026-10-07 21:34:41","views":2980,"church":"도화교회","region":"전남 고흥군","role":"담임목사","employment":"전임","dept":"담임목회","pay":"not stated","deadlineText":"2026년 10월 23일(금) 도착분","deadline_parsed":"2026-10-23","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24573&m=","summary":"전남 고흥군 도화교회(순서노회)에서 담임목사를 청빙. 50~59세·신대원 졸업·목사 경력 5년 이상 자격, 서류심사 후 초청설교·면담. 마감 2026-10-23, 이메일·등기우편 접수.","qual":"1968~1977년생(50~59세), 예장통합 신대원 졸업 이상, 목사 안수 후 담임/부목사 경력 5년 이상, 교단법·사회법 무흠","docs":"이력서(경력포함), 자기소개서(성장과정·목회동기)·목회계획서 각 1부, 가족관계증명서·주민등록등본 각 1부, 최종학력증명서 1부, 설교영상 1점(20분 이내)","contact":"chounha@hanmail.net / 등기우편: (59529) 전남 고흥군 도화면 오치길 29 도화교회 청빙위원회 앞","address":"(59529) 전남 고흥군 도화면 오치길 29","homepage":"","denomination":"대한예수교장로회","presbytery":"순서노회(총회 사적 제51호)","start":"unknown"},{"n":9359,"title":"덕천교회에서 부목사, 전임전도사 모십니다.(끌어올림)","date":"2026-10-07 17:25:16","views":2253,"church":"덕천교회","region":"전북 완주군","role":"부목사/전임전도사 1명","employment":"전임","dept":"청년부, 교회행정","pay":"교회 내규에 따라, 사택 제공","deadlineText":"청빙시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24572&m=","summary":"전북 완주군 덕천교회(예장통합·전북노회)에서 부목사 또는 전임전도사 1명을 청빙. 청년부·교회행정 담당, 신대원 졸업(예정)·남자 50세 이하 자격. 사택 제공. 이메일 접수.","qual":"신대원 졸업예정자(졸업자), 남자 50세 이하","docs":"이력서, 자기소개서, 가족관계증명서, 졸업증명서(예정)","contact":"ejrcjsryghl@hanmail.net / 카페: daum.net/둔산덕천교회 / 063-262-2983 / 010-9723-7711","address":"(55319) 전북 완주군 봉동읍 둔산1로70","homepage":"","denomination":"예장통합","presbytery":"전북노회","start":"2027년 1월"},{"n":9358,"title":"여수성은교회에서 전임사역자(부목사, 전임전도사)를 모십니다.","date":"2026-10-07 17:02:58","views":610,"church":"여수성은교회","region":"전남 여수시","role":"부목사/전임전도사 1명(목사안수 가능)","employment":"전임","dept":"교구, 교육부서","pay":"교회 내규에 따름(사택제공) + 건강보험료·국민연금·사택관리비·명절지원비·휴가비·도서비·퇴직금 등","deadlineText":"청빙 완료시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24571&m=","summary":"전남 여수시 여수성은교회(예장통합·여수노회)에서 전임사역자 1명(부목사·전임전도사, 목사안수 가능)을 청빙. 교구·교육부서 담당. 사택 제공 및 4대보험 성격 복리후생. 이메일 접수.","qual":"본 교단 신대원 졸업자(졸업예정자 가능), 1종 보통 운전면허, 찬양인도 가능자","docs":"이력서, 자기소개서, 가족관계증명서 (이메일 제출 후 문자)","contact":"tjddmsryghl1978@gmail.com / 010-9458-5709","address":"전남 여수시 국동2길 6","homepage":"http://www.seongeun1978.com","denomination":"대한예수교장로회(통합)","presbytery":"여수노회","start":"청빙시부터"},{"n":9357,"title":"전주온누리교회 부목사, 교육전도사 청빙 각 1명","date":"2026-10-07 16:50:05","views":290,"church":"전주온누리교회","region":"전북 전주시","role":"(1) 남성 전임 부목사 1명(30-40세) (2) 교육전도사 1명(파트타임, 남녀 무관)","employment":"전임/파트","dept":"(1) 중등부(약70명)·어와나(약100명)·교육부 디렉터 (2) 유아부(2-4세) 또는 상담","pay":"(1) 중등교원 기본 호봉 준용+수당(가족·근속·급식비)+목회활동비+명절상여금(본봉 200%)+휴가비+매달 사택지원비+건강보험·국민연금+도서비+연차 15일 (2) 교회 내규(연차 적용)+신대원생 학비 학기당 200만원+매월 목회활동비 20만원+도서비","deadlineText":"청빙완료까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24569&m=","summary":"전북 전주시 전주온누리교회에서 남성 전임 부목사 1명(중등부·어와나·교육부 디렉터, 교원 호봉 준용+사택지원비 등)과 파트타임 교육전도사 1명(유아부·상담, 학비 지원)을 각 1명씩 청빙. 이메일 접수.","qual":"(1) 정통교단 목사(카이캄 포함) (2) not stated","docs":"(1) 이력서·자기소개서·설교영상/링크 (2) 이력서","contact":"tojah9316@hanmail.net / 010-7556-9316","address":"unknown","homepage":"http://www.jonnuri.or.kr","denomination":"unknown","presbytery":"unknown","start":"unknown"},{"n":9356,"title":"(끌어올림) 예수나무교회에서 함께 사역할 동역자를 모십니다. (전임 부목사 1명, 교육전도사 1명)","date":"2026-10-07 16:13:47","views":439,"church":"예수나무교회","region":"광주광역시 광산구","role":"전임 부목사 1명(43세 미만 기혼 목사), 교육전도사 1명","employment":"전임(부목사)","dept":"부목사-교구 및 담당사역, 교육전도사-아동부","pay":"교회가 정한대로; 부목사 사택·차량 제공; 교육전도사 학기별 장학금 지급","deadlineText":"2026년 10월 23일까지","deadline_parsed":"2026-10-23","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24568&m=","summary":"광주광역시 광산구 예수나무교회(예장통합·광주동노회)에서 전임 부목사 1명(교구, 사택·차량 제공)과 교육전도사 1명(아동부, 학기별 장학금)을 청빙. 마감 2026-10-23, 이메일 접수.","qual":"부목사 - 본 교단 신대원 졸업자·운전면허 1종 보통; 교육전도사 - 본 교단 신학대학(원) 재학생 또는 졸업생","docs":"이력서, 자기소개서, 가족관계증명서","contact":"comcnkim@gmail.com / 010-3839-2021 (김바울 목사)","address":"광주 광산구 풍영정길 470","homepage":"","denomination":"대한예수교장로회 통합","presbytery":"광주동노회","start":"면접 후 결정"},{"n":9355,"title":"여수소망교회에서 전임전도사님 또는 부목사님을 모십니다.","date":"2026-10-07 15:42:30","views":494,"church":"여수소망교회","region":"전남 여수시","role":"전임전도사/부목사","employment":"전임","dept":"청년부, 행정","pay":"교회 규정에 따라 (전화 문의 시 상세 안내)","deadlineText":"청빙 시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24567&m=","summary":"전남 여수시 여수소망교회(예장통합·여수노회)에서 전임전도사 또는 부목사를 청빙. 청년부·행정 담당, 신대원 졸업(예정)·45세 이하 자격. 사례비는 교회 규정. 이메일 접수.","qual":"신대원 졸업예정자 및 졸업자 (45세 이하)","docs":"이력서, 자기소개서, 재학 또는 졸업증명서","contact":"muikhanjong-ys@hanmail.net (제출 후 문자) / 010-3062-9182","address":"전남 여수시 신월로 681-4","homepage":"","denomination":"대한예수교장로회(통합)","presbytery":"여수노회","start":"면담 후 결정"},{"n":9354,"title":"서귀포교회에서 부목사님을 모십니다.","date":"2026-10-07 14:52:28","views":323,"church":"서귀포교회 (98년 역사, 제주)","region":"제주특별자치도 서귀포시","role":"부목사","employment":"전임","dept":"교구, 교육부서, 제자양육, 찬양인도","pay":"교회규정(상여 400%), 사택 제공(입도시 가족·차량 이사비용 지원), 4대보험 가입(국민/건강/산재/고용), 퇴직연금 적립(본봉 10%), 총회연금·도서비·목회활동비·관리비·명절비·휴가비 지원","deadlineText":"not stated","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24566&m=","summary":"제주특별자치도 서귀포시 서귀포교회(예장통합)에서 기혼 부목사를 청빙. 교구·교육부서·제자양육·찬양인도 담당, 30-40세 전후 자격. 상여 400%·사택·4대보험·퇴직연금 등. 카톡/이메일 접수.","qual":"본 교단(예장통합) 신학교 졸업 및 소속, 30-40세 전후, 기혼 부목사","docs":"이력서 1부(사진·연락처 포함), 자기소개와 부교역자 목회경험 1부 (자율형식)","contact":"카톡 또는 daniel0195@hanmail.net (접수 후 전화/문자 확인) / 문의: 김유진 부목사 010-4402-4940(한글표기 해독) / 접수확인: 010-3692-0195(한글표기 해독)","address":"unknown","homepage":"","denomination":"예장통합","presbytery":"unknown","start":"unknown"},{"n":9353,"title":"전임전도사 또는 부목사 청빙합니다","date":"2026-10-07 13:16:47","views":263,"church":"unknown (54년 된 서귀포시 시내 중심부 교회; 홈페이지 www.bansok.or.kr)","region":"제주특별자치도 서귀포시","role":"전임전도사/부목사 1명","employment":"전임","dept":"행정, 청소년부","pay":"250만원, 총회연금, 사택 및 관리비 전액 지원","deadlineText":"청빙완료시","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24563&m=","summary":"제주특별자치도 서귀포시(제주노회, 김진구 목사)의 54년 된 교회에서 전임전도사 또는 부목사 1명을 청빙. 행정·청소년부 담당. 월 250만원+총회연금+사택·관리비 전액. 이메일/카톡 접수.","qual":"교단 신대원 졸업예정 및 졸업자","docs":"이력서, 자기소개서, 가족증명서 (카톡 접수 가능)","contact":"bobae09@hanmail.net / 010-9740-3671(한글표기 해독)","address":"제주특별자치도 서귀포시 장수로 66","homepage":"","denomination":"예장통합","presbytery":"제주노회","start":"협의 가능"},{"n":9352,"title":"광영중앙교회에서 교육 전도사님을 청빙합니다.","date":"2026-10-07 10:40:09","views":593,"church":"광영중앙교회","region":"전남 광양시","role":"교육전도사 1명","employment":"unknown","dept":"유치부","pay":"월 140만원, 재학생일 시 학기당 장학금 200만원 지급, 명절 상여금","deadlineText":"청빙 완료 시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24562&m=","summary":"전남 광양시 광영중앙교회(예장통합·순천노회)에서 유치부 교육전도사 1명을 청빙. 월 140만원+재학생 학기당 장학금 200만원+명절상여금. 이메일 접수.","qual":"본 교단 신학대학교 및 신대원 재학생 또는 졸업생","docs":"이력서(사진 포함), 자기소개서","contact":"afula@naver.com / 061-793-5888","address":"전라남도 광양시 광영큰골길 12-10","homepage":"http://www.bangjoo.or.kr/","denomination":"예장통합","presbytery":"순천노회","start":"2026년 12월 말부터"},{"n":9351,"title":"[끌어올림] 부산덕천교회에서 함께 사역하실 부목사님(2명), 찬양사역자(1명)를 모십니다.","date":"2026-10-07 10:28:40","views":152,"church":"부산덕천교회","region":"부산광역시 북구","role":"부목사 2명, 찬양사역자 1명(주일오전·오후)","employment":"전임(부교역자)","dept":"교구담당·기타사역, 찬양사역","pay":"교회 내규대로 (사택제공)","deadlineText":"10월 25일 마감","deadline_parsed":"2026-10-25","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24561&m=","summary":"부산광역시 북구 부산덕천교회(예장통합·부산남노회)에서 부목사 2명(전임, 교구)과 찬양사역자 1명(주일 오전·오후)을 청빙. 사택 제공·사례비는 교회 내규. 마감 2026-10-25, 이메일 접수.","qual":"본 교단 신학대학원 졸업","docs":"이력서, 자기소개서, 가족관계증명서, 최근 설교동영상 1편","contact":"kn1104@hanmail.net / 010-5345-9127 / 051-338-9101","address":"부산광역시 북구 만덕대로 56","homepage":"","denomination":"대한예수교장로회 통합","presbytery":"부산남노회","start":"면담 후 결정"},{"n":9350,"title":"(끌어올림)서울 상봉교회에서 전임전도사님을 모십니다.","date":"2026-10-07 05:40:45","views":904,"church":"서울상봉교회","region":"서울특별시 중랑구","role":"전임전도사","employment":"전임","dept":"아동부·교육부 총괄, 교구, 예배 사역","pay":"교회 내규에 따름","deadlineText":"청빙완료까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24560&m=","summary":"서울특별시 중랑구 서울상봉교회(서울동노회)에서 전임전도사를 청빙. 아동부·교육부 총괄 및 교구·예배 사역 담당, 신대원 졸업(예정) 자격. 사례비는 교회 내규. 이메일 접수.","qual":"신학대학원 졸업자(예정자)","docs":"이력서 1통, 자기소개서 1통, 졸업증명서 1통 (하나의 파일로)","contact":"duloskim23@gmail.com","address":"서울특별시 중랑구 상봉중앙로6가길 19-9","homepage":"","denomination":"unknown","presbytery":"서울동노회","start":"10월 중 (면접 후 협의)"},{"n":9349,"title":"빛과사랑교회에서 함께 사역할 동역자를 모십니다.","date":"2026-10-07 04:37:39","views":626,"church":"빛과사랑교회","region":"광주광역시 광산구","role":"부목사 1명, 교육목사/교육전도사 1명","employment":"전임(추정)","dept":"부목사-교구·위원회·찬양, 교육목사/전도사-중고등부","pay":"교회 정관 규정대로 / 복지: 부목사 사택 32평 아파트·차량 제공·총회연금 50%·2대보험 50%; 교육전도사 장학금 별도 지급","deadlineText":"10월1일부터 모집 완료시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=2&w_id=24559&m=","summary":"광주광역시 광산구 빛과사랑교회(예장통합·광주동노회)에서 부목사 1명(교구·위원회·찬양)과 교육목사/전도사 1명(중고등부)을 청빙. 부목사 사택·차량 제공, 교육전도사 장학금 지급. 이메일 접수.","qual":"부목사 - 본 교단 신대원 졸업·운전면허 1종 보통·실제 운전 가능·찬양인도 가능; 교육목사/전도사 - 본 교단 신학대학(원) 재학 또는 졸업생","docs":"이력서(사진·연락처), 자기소개서, 신대(원) 재학/졸업증명서, 가족관계증명서, 각종 자격증명서(소지자)","contact":"pck0619@gmail.com / 062-954-8807, 062-954-8800","address":"광주광역시 광산구 장덕로 95번길 36","homepage":"","denomination":"대한예수교장로회 통합","presbytery":"광주동노회","start":"면접 후 결정"},{"n":9348,"title":"전주성암교회에서 부목사 1분을 모십니다.","date":"2026-10-06 17:29:19","views":2628,"church":"전주성암교회","region":"전북 전주시 완산구","role":"부목사/전임전도사 1명","employment":"전임","dept":"교구, 교육부서, 기타사역","pay":"교회내규에 따라 / 사택제공","deadlineText":"청빙완료까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24558&m=","summary":"전북 전주시 완산구 전주성암교회(예장통합·전주노회)에서 전임사역자 1명(부목사·전임전도사)을 청빙. 교구·교육부서 담당, 교단 신대원 졸업 자격. 사택 제공, 사례비는 교회 내규. 이메일 접수.","qual":"본교단 신대원 졸업자","docs":"이력서, 자기소개서, 가족관계증명서 (이메일로만 접수)","contact":"lesi2@hanmail.net / 010-7702-1623 (이성인 목사)","address":"전주시 완산구 태평3길 21","homepage":"","denomination":"예장통합","presbytery":"전주노회","start":"unknown"},{"n":9347,"title":"(끌어올림)주세움교회(여수)에서 함께 사역 할 전임 사역자를 모십니다.","date":"2026-10-06 15:35:42","views":868,"church":"주세움교회","region":"전남 여수시","role":"부목사/전임전도사 1명(남/여, 안수가능)","employment":"전임","dept":"교구담당, 아동부, 찬양인도","pay":"사택제공, 교회 내규에 따름","deadlineText":"청빙시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24557&m=","summary":"전남 여수시 주세움교회(예장통합·여수노회)에서 전임사역자 1명(부목사·전임전도사, 안수 가능)을 청빙. 교구·아동부·찬양인도 담당, 사택 제공. 이메일 접수.","qual":"unknown","docs":"이력서, 자기소개서","contact":"lp6679@gmail.com (이메일 접수만) / 061-685-4306 / 010-9472-1409","address":"전남 여수시 학동6길 18-6","homepage":"http://jsuchurch.co.kr/","denomination":"예장통합","presbytery":"여수노회","start":"면접 시 조정"},{"n":9346,"title":"[끌어올림} 광천교회 아동부 교육전도사(교육목사) 청빙","date":"2026-10-06 15:32:34","views":566,"church":"광천교회","region":"광주광역시 서구","role":"교육전도사/교육목사","employment":"unknown","dept":"아동부(어린이 부서), 어와나","pay":"교육전도사 110만원, 교육목사 140만원 / 재학생 장학금 매 학기 (학부 200만원, 신대원 전액)","deadlineText":"청빙시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24556&m=","summary":"광주광역시 서구 광천교회(예장통합·광주노회)에서 아동부 교육전도사(교육목사)를 청빙. 어린이부서·어와나 담당, 학부 4학년·신대원 재학/졸업 자격. 교육전도사 월 110만원·교육목사 월 140만원+재학생 장학금. 이메일 접수.","qual":"학부 4학년 혹은 신대원 재학생 및 졸업생","docs":"이력서, 자기소개서, 주민등록등본, 재학증명서(졸업증명서)","contact":"zenith205@naver.com (이메일로만 접수) / 010-8598-8408","address":"광주광역시 서구 천변좌하로 472","homepage":"http://www.kc.or.kr/","denomination":"대한예수교장로회(통합)","presbytery":"광주노회","start":"11월부터 (협의 가능)"},{"n":9345,"title":"광주북문교회에서 목회 동역자를 청빙합니다.","date":"2026-10-06 15:08:35","views":588,"church":"광주북문교회","region":"광주광역시 북구","role":"부교역자(남성 1명)","employment":"전임(추정)","dept":"교구, 청년부 (찬양인도 경험자 우대)","pay":"교회가 정한 사례비 (중등교원 호봉제 기준, 사택 25평형 아파트 제공), 휴가비·명절·목회활동비 제공, 년 12일 연차","deadlineText":"청빙 완료시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24555&m=","summary":"광주광역시 북구 광주북문교회(예장통합·전남노회)에서 남성 부교역자 1명을 청빙. 교구·청년부 담당(찬양인도 경험자 우대), 목사 안수·40대·운전면허 자격. 중등교원 호봉제 기준+사택 25평 아파트. 이메일 접수.","qual":"본 교단 목사 안수 받은 분, 1종 보통 운전면허, 연령 40대","docs":"이력서, 자기소개서, 가족관계증명서, 신대원 졸업증명서","contact":"hclee0691@hanmail.net / 062-526-6251 / 010-9443-0691","address":"광주시 북구 동문대로 28-5(풍향동 500)","homepage":"","denomination":"예장통합","presbytery":"전남노회","start":"협의"},{"n":9344,"title":"(청빙완료)순천노회 골약교회에서 전임교역자를 모십니다.","date":"2026-10-06 13:42:10","views":1146,"church":"골약교회","region":"전남 광양시","role":"전임교역자(부목사)","employment":"전임","dept":"교구 담당","pay":"부목사 연봉 4500-5000만원 (목사 안수 년차별, 매년 인상, 퇴직금 포함); 사택 제공; 대학생 자녀 학비 전액 지원(다자녀 학기별 200만원); 개인 사무실; 휴가·대체휴무·운전수당; 찬양인도 우대","deadlineText":"모집 될 때까지","deadline_parsed":"unknown","status":"CLOSED (제목에 청빙완료 표시)","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24554&m=","summary":"전남 광양시 골약교회(순천노회)에서 전임교역자(부목사, 교구 담당)를 청빙했으나 현재 청빙완료 상태. 연봉 4500-5000만원+사택+자녀 학비 지원 조건이었음.","qual":"unknown","docs":"이력서, 자기소개서, 가족관계증명서 (이메일로만)","contact":"forsheep@hanmail.net / 010-9369-9125","address":"전남 광양시","homepage":"","denomination":"unknown","presbytery":"순천노회","start":"unknown"},{"n":9343,"title":"[끌어올림] 전주강림교회 부목사님을 모십니다","date":"2026-10-06 12:43:15","views":962,"church":"전주강림교회 (45주년)","region":"전북 전주시 덕진구","role":"부목사(남자 1명)","employment":"전임","dept":"행정, 교구","pay":"본 교회 직원보수규정에 따름; 사택 필요시 논의 가능(사택 지원 혹은 사택 보조금)","deadlineText":"청빙시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24553&m=","summary":"전북 전주시 덕진구 전주강림교회(예장통합·전북노회)에서 행정·교구 담당 남자 부목사 1명을 청빙. 교단 인준 신대원 졸업·전주 거주 가능 자격. 사례비는 교회 직원보수규정, 사택 협의 가능. 우편·이메일 접수.","qual":"본 교단(예장통합) 인준 신학대학원 졸업자, 부임 후 전주 거주 가능자, 컴퓨터 활용·행정 업무 능력","docs":"이력서, 자기소개서(성장과정·목회철학·가족소개), 교단 인준 신대원 졸업증명서, 최종학력증명서, 목사안수증명서, 자격증 사본(해당자)","contact":"jeonjuganglim@gmail.com / 우편: 전북 전주시 덕진구 매봉로 23 전주강림교회 / 010-6720-3323(한글표기 해독)","address":"전주시 덕진구 매봉로 23","homepage":"www.kanglim.or.kr","denomination":"대한예수교장로회(통합)","presbytery":"전북노회","start":"면접 시 협의"},{"n":9341,"title":"(끌어올림) 광주 송월교회에서 함께 동역하실 부목사님을 모십니다.","date":"2026-10-06 10:09:39","views":775,"church":"송월교회","region":"광주광역시 북구","role":"부목사(남자 1명)","employment":"전임(추정)","dept":"교구","pay":"면담 후 확정 / 사택 제공","deadlineText":"청빙시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24551&m=","summary":"광주광역시 북구 송월교회(예장통합·광주동노회)에서 교구 담당 남자 부목사 1명을 청빙. 교단 인준 신대원 졸업 자격, 사례비는 면담 후 확정·사택 제공. 이메일 접수.","qual":"본 교단(예장통합) 인준 신학대학원 졸업자","docs":"이력서, 자기소개서(성장과정·목회철학·가족소개)","contact":"skynbada@hanmail.net / 010-2332-7488","address":"광주광역시 북구 능안로 12번길 38","homepage":"http://song1004.onmam.com","denomination":"대한예수교장로회(통합)","presbytery":"광주동노회","start":"unknown"},{"n":9340,"title":"원주제일교회에서 함께 사역 하실 귀한 동역자를 청빙합니다.","date":"2026-10-06 09:27:26","views":570,"church":"원주제일교회","region":"강원특별자치도 원주시","role":"부목사 2명","employment":"전임","dept":"교구·교육부서 / 청년부·위원회 사역 (지원자 경험·은사 고려 협의)","pay":"교회 내규에 따름","deadlineText":"청빙 완료 시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24550&m=","summary":"강원특별자치도 원주시 원주제일교회(예장통합·강원노회)에서 부목사 2명을 청빙. 교구·교육부서·청년부·위원회 사역, 신대원 졸업/재학 자격. 사례비는 교회 내규, 여름휴가 외 월차 가능. 이메일 접수.","qual":"본 교단 신학대학원 졸업자 및 재학자, 교구사역·청년부 사역 유경험자 우대","docs":"이력서 / 자기소개서 / 가족관계증명서","contact":"serkmin98@hanmail.net (제출 후 문자) / 문의: 행정목사 지석민 목사 010-4842-2627(한글표기 해독) / 교회전화 033-762-9111(한글표기 해독)","address":"강원특별자치도 원주시 한지공원길 94-29","homepage":"http://www.wjji.or.kr/","denomination":"대한예수교장로회 통합","presbytery":"강원노회","start":"협의 가능"},{"n":9339,"title":"덕신제일교회(울산) 부목사, 교육목사 각각 한 분씩 청빙합니다.","date":"2026-10-05 14:02:31","views":3892,"church":"덕신제일교회","region":"울산광역시 울주군","role":"부목사 1명, 교육목사 1명","employment":"전임(추정)","dept":"부목사-교구·행정·교육부서1·찬양, 교육목사-교육부서1·행정일부 (교육목사 타교단 가능)","pay":"교회에서 정한 사례비(사택), 면접시 안내","deadlineText":"청빙시까지","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24549&m=","summary":"울산광역시 울주군 덕신제일교회에서 부목사 1명(교구·행정·교육·찬양)과 교육목사 1명(교육부서·행정, 타교단 가능)을 각 1명씩 청빙. 사례비는 면접시 안내(사택 포함). 이메일 접수.","qual":"unknown","docs":"이력서, 자기소개서, 가족관계증명서 (하나의 파일로)","contact":"leeturismo@naver.com (문의도 이메일)","address":"울산시 울주군 온산읍 신온1길 3-4","homepage":"www.덕신제일교회.com","denomination":"unknown","presbytery":"unknown","start":"unknown"},{"n":9338,"title":"전주신일교회 음악사역자(찬양대 지휘자, 피아노 반주자, 오르간 반주자, 솔리스티) 청빙합니다.","date":"2026-10-04 18:41:09","views":4354,"church":"전주신일교회","region":"전북 전주시 완산구","role":"찬양사역자 - 지휘자 1명, 피아노 반주자 1명, 오르간 반주자 1명, 솔리스트 1명","employment":"unknown (지원서 보수/무보수 선택)","dept":"찬양대(할레우스 찬양단)","pay":"교회 내규에 따라 지급","deadlineText":"2026년 10월 4일(일) ~ 10월 16일(금) 17:00까지","deadline_parsed":"2026-10-16","status":"open (마감 2026-10-16, 기준일 2026-10-12 현재 접수 중)","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24548&m=","summary":"전북 전주시 완산구 전주신일교회에서 예배·찬양사역 음악사역자 4명(지휘자·피아노반주·오르간반주·솔리스트 각 1명)을 청빙. 3년 임기(2027-2029), 접수마감 2026-10-16 17시. 교회 내규 사례. 우편·방문·이메일 접수.","qual":"65세 이하(1961년생 포함), 해당 음악 분야 학위 소지자 또는 음악적 역량자, 전북특별자치도 거주자 원칙","docs":"지원서(소정양식), 학력·경력 증빙서류, 자기소개서(소정양식), 세례증명서, 개인정보수집·이용동의서, 현 출석교회 주보","contact":"jjshinilchurch@gmail.com / 우편·방문 / 063-221-1549 / 행정목사 010-3615-0066","address":"(55094) 전북특별자치도 전주시 완산구 안행5길 61","homepage":"www.shinil.or.kr","denomination":"unknown","presbytery":"unknown","start":"사역기간 2027-01-01 ~ 2029-12-31 (3년, 평가 후 연임 가능)"},{"n":9337,"title":"(끌어올림)목포동신교회에서 전임교역자(부목사 또는 전임전도사)님을 모십니다.","date":"2026-10-03","views":3772,"church":"목포동신교회","region":"전남 목포시 (inferred)","role":"전임교역자(부목사 또는 전임전도사) 1명","employment":"전임","dept":"교구 및 기타부서(부분 해독)","pay":"교회 내규(추정)","deadlineText":"청빙시까지(추정)","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24547&m=","summary":"전남 목포시 목포동신교회에서 전임교역자(부목사 또는 전임전도사) 1명을 청빙. 연락처 010-7632-6211. 본문 한글은 인코딩 문제로 해독 불가, 세부 조건 미확인.","qual":"M.Div 졸업, 45세 미만(1981년생~) 기혼자 추정 — 한글 해독 불가로 미확정; 1종 보통 운전면허 추정","docs":"이력서(6개월 이내 사진 추정), 자기소개서(A4 2매), 주민등록등본 등 — 부분 해독","contact":"010-7632-6211(담임목사)","address":"전남 목포시 (상세주소 해독 불가)","homepage":"","denomination":"예장통합(추정)","presbytery":"unknown","start":"unknown"},{"n":9336,"title":"대구 대봉교회 중등부, 아동1부 교육 전도사(또는 교육 목사) 청빙","date":"2026-10-03","views":1841,"church":"대봉교회","region":"대구광역시 (제목 명시)","role":"교육전도사(또는 교육목사) 2명","employment":"unknown","dept":"중등부, 아동1부","pay":"교회 내규, 100만원대 언급 추정 — 세부 해독 불가","deadlineText":"청빙시까지(추정)","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24546&m=","summary":"대구광역시 대봉교회에서 중등부·아동1부 담당 교육전도사(또는 교육목사) 2명을 청빙. 홈페이지 www.daebong.or.kr, 접수 k-eunhoi@hanmail.net, 문의 010-2710-3533. 세부 조건은 한글 해독 불가로 미확인.","qual":"unknown","docs":"이력서, 자기소개서(하나의 파일로, 추정)","contact":"k-eunhoi@hanmail.net / 053-476-9291 / 010-2710-3533","address":"대구광역시 (상세주소 해독 불가)","homepage":"https://www.daebong.or.kr/","denomination":"예장통합(추정)","presbytery":"unknown","start":"12월 관련 언급 있으나 해독 불가"},{"n":9335,"title":"전주신일교회에서 교육전도사님(유년부, 소년부)을 청빙합니다","date":"2026-10-02","views":2579,"church":"전주신일교회","region":"전북 전주시 (inferred)","role":"교육전도사","employment":"unknown","dept":"유년부, 소년부","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24545&m=","summary":"전북 전주시 전주신일교회에서 유년부·소년부 담당 교육전도사를 청빙 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9334,"title":"(끌어올림) 땅끝교회 [청년교구 전임 교역자]를 모십니다.","date":"2026-10-02","views":2152,"church":"땅끝교회","region":"unknown (전화 지역번호 051 — 부산 추정)","role":"청년교구 전임교역자 1명","employment":"전임","dept":"청년교구 (3040 세대 언급 추정)","pay":"급여조건 명시 — 기본급+상여금+교회활동비 등 구성, 부목사/전임전도사 구분, 세부 금액 해독 불가","deadlineText":"2026년 11월 중 (정확한 일자 해독 불가)","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=3&w_id=24544&m=","summary":"땅끝교회에서 청년교구 전임교역자 1명을 청빙. 급여조건(기본급·상여금·교회활동비 등) 명시, 사역시작 2026년 12월~2027년 1월 예정. 접수 yjchjc1951@naver.com, 전화 051-415-2241~2. 마감일·세부 조건은 한글 해독 불가로 미확인.","qual":"기혼 40세 미만 추정, 1종 보통 운전면허 추정 — 한글 해독 불가로 미확정","docs":"이력서(사진), 자기소개서, 주민등록등본 등 — 부분 해독","contact":"yjchjc1951@naver.com (이메일로만 접수 추정) / 051-415-2241~2","address":"unknown (상세주소 해독 불가)","homepage":"","denomination":"예장통합(추정)","presbytery":"unknown","start":"2026년 12월 ~ 2027년 1월 (부분 해독)"},{"n":9333,"title":"문흥제일교회 교육 [남,여 전도사]를 모십니다.","date":"2026-10-02","views":2475,"church":"문흥제일교회","region":"광주광역시 (작성자명 기준 inferred)","role":"전도사(남/여)","employment":"unknown","dept":"교육","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=4&w_id=24543&m=","summary":"광주광역시 문흥제일교회에서 교육 담당 남·여 전도사를 모집 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9332,"title":"구암교회에서 중고등부와 청년부 담당 목회자를 모십니다.","date":"2026-10-02","views":1989,"church":"구암교회","region":"광주광역시 (본문 주소에 '광주' 포함)","role":"전임전도사 또는 목사 1명(부분 해독)","employment":"전임(추정)","dept":"중고등부, 청년부","pay":"교회 내규에 따름(추정)","deadlineText":"청빙시까지(추정)","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=4&w_id=24542&m=","summary":"광주광역시 구암교회에서 중고등부·청년부 담당 목회자(전임전도사 또는 목사) 1명을 청빙. 홈페이지 www.guamchurch.net, 접수 syb1727@hanmail.net, 문의 010-3068-2459. 세부 조건은 한글 해독 불가로 미확인.","qual":"unknown","docs":"이력서, 자기소개서 각 1부 (추정)","contact":"syb1727@hanmail.net (이메일로만 접수 추정) / 010-3068-2459","address":"광주광역시 (상세주소 해독 불가)","homepage":"http://www.guamchurch.net","denomination":"unknown","presbytery":"unknown","start":"unknown"},{"n":9331,"title":"이리성산교회(익산)에서 부목사님과 파트교역자를 모십니다.","date":"2026-10-02","views":1409,"church":"이리성산교회","region":"전북 익산시 (제목에 명시)","role":"부목사, 파트교역자","employment":"전임+파트","dept":"unknown","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=4&w_id=24541&m=","summary":"전북 익산시 이리성산교회에서 부목사와 파트교역자를 모집 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9330,"title":"무안무학교회에서 전임교역자를 청빙합니다.","date":"2026-10-02","views":1641,"church":"무안무학교회","region":"전남 무안군 (inferred)","role":"전임교역자","employment":"전임","dept":"unknown","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=4&w_id=24540&m=","summary":"전남 무안군 무안무학교회에서 전임교역자를 청빙 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9329,"title":"교육전도사및 전임전도사 모집합니다.","date":"2026-10-01","views":3899,"church":"unknown (제목에 교회명 없음)","region":"unknown","role":"교육전도사, 전임전도사","employment":"unknown","dept":"unknown","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=4&w_id=24539&m=","summary":"교회명 미상. 교육전도사 및 전임전도자를 모집 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9327,"title":"(끌올)전남 순천 서로사랑하는 교회에서 교육전도사(및 교육목사)를 청빙합니다","date":"2026-10-01","views":2609,"church":"서로사랑하는교회","region":"전남 순천시 (제목에 명시)","role":"교육전도사(및 교육목사)","employment":"unknown","dept":"unknown","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=4&w_id=24537&m=","summary":"전남 순천시 서로사랑하는교회에서 교육전도사(및 교육목사)를 청빙 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9326,"title":"순천천보교회에서 전임사역자님을 청빙합니다.","date":"2026-09-30","views":3785,"church":"순천천보교회","region":"전남 순천시 (inferred)","role":"전임사역자","employment":"전임","dept":"unknown","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=4&w_id=24536&m=","summary":"전남 순천시 순천천보교회에서 전임사역자를 청빙 (제목 기준, 본문 미확인). 동일 작성자의 9366번 본문이 확인되어 있으나 본 게시물과의 내용 동일 여부는 미확인.","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9324,"title":"목민교회에서 교육부총괄 부목사님을 청빙합니다","date":"2026-09-30","views":961,"church":"목민교회","region":"unknown","role":"부목사","employment":"unknown","dept":"교육부 총괄","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=4&w_id=24533&m=","summary":"목민교회에서 교육부 총괄 부목사를 청빙 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9321,"title":"광주남광교회 교역자 청빙합니다.","date":"2026-09-30","views":1297,"church":"광주남광교회","region":"광주광역시 (inferred)","role":"교역자","employment":"unknown","dept":"unknown","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=4&w_id=24530&m=","summary":"광주광역시 광주남광교회에서 교역자를 청빙 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9312,"title":"예은교회에서 부목사님 1분을 모십니다.","date":"2026-09-29 15:10:42","views":1075,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=5&w_id=24521&m=","status":"open","church":"예은교회","region":"전북 전주시 덕진구","role":"부목사 1명","employment":"전임(추정)","dept":"찬양 및 교구","pay":"교회 내규, 연금 지원, 사택 32평, 휴가 10일 이상, 호봉수 인정","deadlineText":"청빙완료까지","qual":"본 교단 신대원을 졸업하고 목사 안수 받으신 분","docs":"이력서 , 자기소개서, 가족관계증명서","contact":"smile9143@hanmail.net / 010-8602-0197 (고현준 목사)","address":"전북 전주시 덕진구 와룡로 3","homepage":"yeeunch.com","denomination":"예장통합","presbytery":"전북노회","start":"청빙시 결정","summary":"전북 전주시 예은교회(예장통합·전북노회)에서 부목사 1명을 청빙. 찬양·교구 담당, 신대원 졸업한 목사 안수자. 사택 32평·연금·휴가 10일, 호봉수 인정. 청빙완료까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9311,"title":"군산동부교회 중고등부 담당교역자를 모십니다.(교육전도사, 교육목사, 준전임 사역자)","date":"2026-09-29 14:15:22","views":1049,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=5&w_id=24520&m=","status":"open","church":"군산동부교회","region":"전북 군산시","role":"교육전도사(교육목사) 또는 준전임 사역자 1명","employment":"준전임","dept":"중고등부","pay":"교회 내규대로","deadlineText":"청빙시까지","qual":"교단 신학대학원 졸업생 이상","docs":"이력서 및 자기소개서, 가족관계증명서 (하나의 파일로)","contact":"ysilove@hanmail.net / 010-6231-7722 (류승인 목사)","address":"전라북도 군산시 문화로 23 (문화동)","homepage":"","denomination":"대한예수교장로회(통합)","presbytery":"군산노회","start":"청빙 결정 후 조율","summary":"전북 군산시 군산동부교회(예장통합·군산노회)에서 중고등부 담당 교육전도사(교육목사) 또는 준전임 사역자 1명을 청빙. 수·금·토·주일 출근, 신대원 졸업생 이상. 청빙시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9310,"title":"(끌어올림)서울 상봉교회에서 전임전도사님을 모십니다.","date":"2026-09-29 14:08:28","views":821,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=5&w_id=24518&m=","status":"open","church":"상봉교회","region":"서울특별시 중랑구","role":"전임전도사","employment":"전임","dept":"아동부·교육부 총괄, 교구, 예배","pay":"교회 내규에 따름","deadlineText":"청빙완료까지","qual":"신학대학원 졸업자 (예정자 가능)","docs":"이력서, 자기소개서, 졸업증명서 (하나의 파일로)","contact":"duloskim23@gmail.com / 010-5800-0284 (김재현 목사)","address":"서울특별시 중랑구 상봉중앙로6가길 19-9","homepage":"","denomination":"","presbytery":"서울동노회","start":"10월 중 (면접 후 협의)","summary":"서울 중랑구 상봉교회(서울동노회)에서 전임전도사 1명을 청빙. 아동부·교육부 총괄과 교구·예배 사역, 신대원 졸업(예정)자. 청빙완료까지 이메일 접수, 10월 중 사역 시작.","deadline_parsed":"unknown"},{"n":9309,"title":"[기장]광주양림교회에서 심방전도사님을 청빙합니다.(끌어올림)","date":"2026-09-29 13:32:34","views":808,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=5&w_id=24517&m=","status":"open","church":"광주양림교회","region":"광주광역시","role":"심방전도사 (전임)","employment":"전임","dept":"심방","pay":"unknown","deadlineText":"청빙 완료 시까지","qual":"광주 시내 거주·출퇴근 가능자, 교회 차량 운전 가능자","docs":"이력서, 자기소개서","contact":"okshalom@naver.com 접수 후 문자 / 010-5214-4769 (옥재호 목사)","address":"","homepage":"","denomination":"한국기독교장로회(기장)","presbytery":"","start":"unknown","summary":"광주광역시 광주양림교회(한국기독교장로회)에서 전임 심방전도사를 청빙. 광주 시내 거주·출퇴근 가능하고 교회 차량 운전이 가능한 분. 청빙 완료 시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9306,"title":"(끌어올림) 광주창대교회에서 함께하실 교육전도사(교육목사)를 모십니다.","date":"2026-09-29 10:44:33","views":778,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=5&w_id=24514&m=","status":"open","church":"광주창대교회","region":"광주광역시 광산구","role":"교육전도사(교육목사) 1명","employment":"unknown","dept":"중고등부","pay":"교회 내규","deadlineText":"청빙시까지","qual":"unknown","docs":"이력서, 자기소개서","contact":"pks821120@hanmail.net / 010-4810-4922 (박금심 목사)","address":"광주광역시 광산구 우산천변길 589","homepage":"","denomination":"예장통합","presbytery":"광주노회","start":"unknown","summary":"광주광역시 광산구 광주창대교회(예장통합·광주노회)에서 중고등부 담당 교육전도사(교육목사) 1명을 청빙. 청빙시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9320,"title":"(끌어올림) 광주 신안교회에서 함께 동역할 부목사님과 교육전도사님을 청빙합니다.","date":"2026-09-29","views":3773,"church":"광주 신안교회","region":"광주광역시 (inferred)","role":"부목사, 교육전도사","employment":"unknown","dept":"unknown","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=4&w_id=24529&m=","summary":"광주광역시 신안교회에서 부목사와 교육전도사를 청빙 (끌어올림 재게시, 제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9319,"title":"고성교회 부교역자를 청빙합니다.","date":"2026-09-29","views":2474,"church":"고성교회","region":"unknown (경남/강원 고성 구분 불가)","role":"부교역자","employment":"unknown","dept":"unknown","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=4&w_id=24528&m=","summary":"고성교회에서 부교역자를 청빙. 지역(경남/강원 고성) 구분 불가 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9317,"title":"전주산돌교회에서 파트 사역자를 청빙합니다.","date":"2026-09-29","views":1094,"church":"전주산돌교회","region":"전북 전주시 (inferred)","role":"사역자","employment":"파트","dept":"unknown","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=5&w_id=24526&m=","summary":"전북 전주시 전주산돌교회에서 파트 사역자를 청빙 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9316,"title":"전주산돌교회 지휘자를 모십니다.","date":"2026-09-29","views":710,"church":"전주산돌교회","region":"전북 전주시 (inferred)","role":"지휘자(찬양사역자)","employment":"unknown","dept":"찬양","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=5&w_id=24525&m=","summary":"전북 전주시 전주산돌교회에서 찬양대 지휘자를 모집 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9315,"title":"전주산돌교회에서 미디어간사(영상편집, 홈페이지 관리)를 모집합니다.","date":"2026-09-29","views":405,"church":"전주산돌교회","region":"전북 전주시 (inferred)","role":"미디어간사","employment":"unknown","dept":"미디어/행정(영상편집, 홈페이지 관리)","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=5&w_id=24524&m=","summary":"전북 전주시 전주산돌교회에서 영상편집·홈페이지 관리 담당 미디어간사를 모집 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9314,"title":"광주성안교회 부목사님을 모십니다(1명)","date":"2026-09-29","views":983,"church":"광주성안교회","region":"광주광역시 (inferred)","role":"부목사 1명","employment":"unknown","dept":"unknown","pay":"unknown","deadlineText":"unknown","deadline_parsed":"unknown","status":"open","url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=5&w_id=24523&m=","summary":"광주광역시 광주성안교회에서 부목사 1명을 모집 (제목 기준, 본문 미확인).","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown"},{"n":9303,"title":"(끌어올림) 전주시온성교회에서 부목사님과 교육전도사님을 모십니다.","date":"2026-09-27 12:45:34","views":3510,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=6&w_id=24511&m=","status":"open","church":"전주시온성교회","region":"전북 전주시 덕진구","role":"부목사 1명, 교육전도사 1명","employment":"전임","dept":"부목사-교구·위원회, 교육전도사-중등부","pay":"부목사 연봉 4천만원 초반 (사택지원 또는 주거보조비), 교육전도사 월 110만원","deadlineText":"청빙시까지","qual":"부목사: 본 교단 신대원 졸업 후 목사 안수자, 기혼 (40세 전후); 교육전도사: 신대원 재학생 또는 졸업자","docs":"이력서, 자기소개서, 주민등록등본 (면접 시 준비)","contact":"kimbs7078@nate.com / 010-3580-6740","address":"전북 전주시 덕진구 공북5길 55","homepage":"","denomination":"예장통합","presbytery":"전북노회","start":"청빙시 조정","summary":"전북 전주시 전주시온성교회(예장통합·전북노회)에서 부목사 1명(교구·위원회)과 교육전도사 1명(중등부)을 청빙. 부목사 연봉 4천만원 초반·사택 지원, 교육전도사 월 110만원. 청빙시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9302,"title":"제주영락교회에서 부목사님을 모십니다.","date":"2026-09-25 20:13:48","views":3353,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=6&w_id=24508&m=","status":"open","church":"제주영락교회","region":"제주특별자치도","role":"부목사 1명","employment":"전임(추정)","dept":"교구, 위원회, 알파사역, 청년부, 교육총괄, 찬양","pay":"교회 내규 (이사비 지원), 사택 제공","deadlineText":"9월 30일까지","qual":"제주지역을 품고 성실히 사역할 분, 40세 이하","docs":"이력서, 자기소개서, 가족관계증명서, 설교영상·찬양영상 링크","contact":"jejuyn1952@gmail.com / 010-4477-3702","address":"","homepage":"","denomination":"예장통합(제목·본문 기준)","presbytery":"","start":"unknown","summary":"제주 제주영락교회에서 부목사 1명을 청빙. 교구·청년부·교육총괄·찬양 담당, 40세 이하. 사택 제공·이사비 지원. 9월 30일까지 이메일 접수 (마감 지남, 원문 확인).","deadline_parsed":"2026-09-30"},{"n":9301,"title":"예배 반주자 모집합니다.","date":"2026-09-24 14:16:32","views":3814,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=6&w_id=24507&m=","status":"open","church":"새로운교회","region":"광주광역시 북구","role":"예배 반주자 (파트)","employment":"파트","dept":"주일 9시·11시 예배 반주","pay":"월 40만원","deadlineText":"충원시 마감","qual":"신디·피아노 반주 가능자 (전공자 우대)","docs":"이력서 (이메일 제출)","contact":"Kasedj@naver.com / 010-3329-5853 (김성덕 목사)","address":"광주광역시 북구 중문로 36 (우산동 168-7)","homepage":"","denomination":"예장통합","presbytery":"","start":"unknown","summary":"광주광역시 북구 새로운교회(예장통합)에서 주일 9시·11시 예배 반주자를 모집. 신디·피아노 반주 가능자(전공자 우대), 월 40만원. 충원 시 마감, 이력서 이메일 접수.","deadline_parsed":"unknown"},{"n":9300,"title":"캐나다 원주민 선교사 모집","date":"2026-09-24 08:36:47","views":3467,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=6&w_id=24505&m=","status":"open","church":"153선교회 캐나다 원주민 선교","region":"해외","role":"선교사 (전도사·목사)","employment":"unknown","dept":"예배인도, 청소년 사역, 여름성경학교","pay":"주거 보장 (교회 사택 제공), 임금 협의","deadlineText":"unknown","qual":"영어로 의사소통·기도·설교 준비가 가능한 전도사·목사, 선교의 부르심과 원주민 공동체를 섬기는 마음","docs":"unknown","contact":"hyosokhong@nbseminary.ca (홍효석 목사) / 카톡 dawnranger","address":"캐나다 BC주 밴쿠버 섬","homepage":"","denomination":"","presbytery":"","start":"unknown","summary":"캐나다 BC주 밴쿠버 섬 원주민 선교(153선교회)에서 단기·풀타임 선교 사역자를 모집. 예배인도·청소년 사역·여름성경학교, 관광비자 6개월 사역 가능, 사택 제공·임금 협의. 영어 소통 가능자.","deadline_parsed":"unknown"},{"n":9298,"title":"광주한일교회 전임사역자(1명) 및 교육전도사(1명 중고등부) 청빙","date":"2026-09-23 14:45:23","views":3010,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=6&w_id=24503&m=","status":"open","church":"광주한일교회","region":"광주광역시 서구","role":"전임사역자 1명, 교육전도사 1명","employment":"전임","dept":"교육전도사-중고등부","pay":"사례비·상여금 400%, 전임사역자 사택 제공, 교육전도사 학기별 장학금","deadlineText":"청빙시까지","qual":"전임사역자: 신대원 졸업(예정)자, 교육전도사: 신학대 재학·졸업(예정)자","docs":"이력서, 자기소개서, 졸업증명서, 주민등록등본","contact":"9951028@gmail.com / 010-8709-0228","address":"광주광역시 서구 내방로358번길 8","homepage":"hanilchurch.com","denomination":"대한예수교장로회(통합)","presbytery":"광주노회","start":"2027년부터","summary":"광주광역시 서구 광주한일교회(예장통합·광주노회)에서 전임사역자 1명과 중고등부 교육전도사 1명을 청빙. 사택 제공·상여금 400%, 교육전도사 장학금. 2027년부터 사역, 청빙시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9295,"title":"운암교회에서 유치부 교육전도사님을 모십니다.","date":"2026-09-23 11:43:02","views":1429,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=6&w_id=24499&m=","status":"open","church":"운암교회","region":"광주광역시 북구","role":"교육전도사 1명","employment":"unknown","dept":"유치부","pay":"월 100만원, 재학생 학기별 장학금 지원","deadlineText":"2026년 10월 17일까지","qual":"학부·신대원 재학 및 졸업","docs":"이력서, 자기소개서","contact":"ilykan@naver.com / 010-9412-9101 (이기호 목사)","address":"광주광역시 북구 북문대로 112 (운암동 305-1)","homepage":"","denomination":"예장통합","presbytery":"광주동노회","start":"11월부터","summary":"광주광역시 북구 운암교회(예장통합·광주동노회)에서 유치부 교육전도사 1명을 청빙. 월 100만원·재학생 장학금, 11월부터 사역. 10월 17일까지 이메일 접수.","deadline_parsed":"2026-10-17"},{"n":9294,"title":"병영교회 부교역자를 모십니다. 전임(부목사 및 전임전도사) 1명","date":"2026-09-23 10:29:37","views":1428,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=6&w_id=24498&m=","status":"open","church":"병영교회","region":"울산광역시 중구","role":"부목사 또는 전임전도사 1명","employment":"전임","dept":"전임 사역","pay":"교회 내규 (차량·사택·관리비 제공, 총회연금 100%, 명절여비·휴가비·도서비·통신비·퇴직금, 장학금)","deadlineText":"청빙마감까지","qual":"본 교단 신대원 졸업예정자·졸업자, 50대 미만","docs":"이력서, 자기소개서, 가족관계증명서, 최근 설교 동영상 1편","contact":"jkseo115@gmail.com / 052-292-5357","address":"울산광역시 중구 병영성길 89","homepage":"","denomination":"예장통합","presbytery":"울산노회","start":"11월 중","summary":"울산광역시 중구 병영교회(예장통합·울산노회)에서 전임 부목사 또는 전임전도사 1명을 청빙. 50대 미만 신대원 졸업(예정)자, 차량·사택·총회연금 100% 제공. 11월 중 사역 시작, 이메일 접수.","deadline_parsed":"unknown"},{"n":9290,"title":"벌교제일교회에서 아동부교육전도사님(교육목사님)을 청빙합니다.","date":"2026-09-22 14:47:31","views":2180,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=6&w_id=24494&m=","status":"open","church":"벌교제일교회","region":"전남 보성군","role":"교육전도사(교육목사) 1명","employment":"unknown","dept":"아동부","pay":"월 110만원 (재학생 장학금 지급), 숙소 사용 가능","deadlineText":"청빙시까지","qual":"본 교단 학부 또는 신대원 재학·졸업자 (남자)","docs":"이력서, 자기소개서","contact":"esther5279@hanmail.net / 010-2802-5279","address":"전남 보성군 벌교읍 태백산맥길 35-7","homepage":"","denomination":"예장통합","presbytery":"순서노회","start":"청빙시부터","summary":"전남 보성군 벌교제일교회(예장통합·순서노회)에서 아동부 교육전도사(교육목사) 1명을 청빙. 월 110만원·숙소 제공, 재학생 장학금. 청빙시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9289,"title":"[끌어올림] 감동교회에서 부목사님을 모십니다.(서울 송파구)","date":"2026-09-22 05:27:37","views":2695,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=6&w_id=24492&m=","status":"open","church":"감동교회","region":"서울특별시 송파구","role":"부목사 1명","employment":"전임(추정)","dept":"행정, 교구, 찬양인도, 위원회","pay":"월 270만원, 25평 사택·관리비 제공, 총회연금 50% 지원","deadlineText":"청빙 완료 시까지","qual":"본 교단 신학대학원 졸업자, 1종 보통 운전면허, 43세 이하","docs":"이력서, 자기소개서, 가족관계증명서, 설교 동영상 링크","contact":"visionung@kakao.com","address":"서울특별시 송파구 가락로 177","homepage":"","denomination":"","presbytery":"서울강동노회","start":"내년 1월부터 (조정 가능)","summary":"서울 송파구 감동교회(서울강동노회)에서 부목사 1명을 청빙. 행정·교구·찬양인도, 43세 이하 신대원 졸업자. 월 270만원·25평 사택·총회연금 50%. 청빙 완료 시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9288,"title":"약산제일교회 담임목사 청빙합니다.","date":"2026-09-21 23:44:26","views":2464,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=7&w_id=24490&m=","status":"open","church":"약산제일교회","region":"unknown","role":"담임목사","employment":"전임(추정)","dept":"unknown","pay":"unknown","deadlineText":"unknown","qual":"","docs":"unknown","contact":"unknown","address":"","homepage":"","denomination":"","presbytery":"","start":"unknown","summary":"약산제일교회에서 담임목사를 청빙. 자격·서류 등 자세한 내용은 원문 게시글의 첨부 공고문(한글 파일)에서 확인해야 한다.","deadline_parsed":"unknown"},{"n":9287,"title":"순천수정교회 부목사/전임전도사를 모십니다(교구, 교육부서)","date":"2026-09-20 17:23:03","views":2986,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=7&w_id=24488&m=","status":"open","church":"순천수정교회","region":"전남 순천시","role":"부목사 또는 전임전도사","employment":"전임","dept":"교구 및 교육부서","pay":"총회 호봉 기준 지급, 사택·차량 지원, 목회활동비·휴가비·유류비, 교단 연금 100%","deadlineText":"충원 시까지","qual":"교단 신학대학원(M.Div) 졸업(예정)자, 1종 보통 운전면허","docs":"이력서, 자기소개서, 가족관계증명서","contact":"ddpkkk@naver.com / 010-6376-7553 (송현진 목사)","address":"전라남도 순천시 비례골길 28 (조례동)","homepage":"www.sjtv.org","denomination":"대한예수교장로회(통합)","presbytery":"순천남노회","start":"면접 후 협의","summary":"전남 순천시 순천수정교회(예장통합·순천남노회)에서 부목사 또는 전임전도사를 청빙. 교구·교육부서 담당, 호봉제·사택·차량·연금 100% 지원. 충원 시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9286,"title":"[추가공고]세포교회 담임목사님을 청빙합니다.","date":"2026-09-20 14:11:58","views":2583,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=7&w_id=24487&m=","status":"open","church":"세포교회","region":"전남 여수시","role":"담임목사","employment":"전임(추정)","dept":"unknown","pay":"unknown","deadlineText":"2026년 10월 1일 ~ 10월 14일까지","qual":"만 40~53세 (1973~1986년생), 본 교단 신대원 졸업, 목사 안수 후 목회경력 7년 이상, 기혼","docs":"이력서, 본인·사모 자기소개서, 목회계획서, 설교 원고·동영상, 추천서 2부, 학력·안수·노회소속 증명서, 가족관계증명서·주민등록등본, 현 시무교회 주보, 건강진단서 등","contact":"등기우편 접수 (전남 여수시 화양면 화양로 302 세포교회 담임목사 청빙위원회) / 문의 kskim@sebashipping.co.kr","address":"전남 여수시 화양면 화양로 302","homepage":"","denomination":"대한예수교장로회","presbytery":"여수노회","start":"unknown","summary":"전남 여수시 화양면 세포교회(여수노회)에서 은퇴하는 담임목사의 후임 담임목사를 청빙. 만 40~53세, 목사 안수 후 목회경력 7년 이상의 기혼자. 10월 14일까지 등기우편 접수.","deadline_parsed":"2026-10-14"},{"n":9278,"title":"평택 송탄동성교회 전임전도사 및 교육목사 청빙(끌어올림)","date":"2026-09-16 06:44:53","views":1991,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=7&w_id=24469&m=","status":"open","church":"송탄동성교회","region":"경기도 평택시","role":"전임전도사 또는 교육목사 1명","employment":"전임","dept":"행정, 교육부서","pay":"사택 제공 등 면담 시 안내","deadlineText":"청빙시까지","qual":"본 교단 신학대학원 졸업예정자·졸업자, 찬양인도 우대, 1종 보통운전면허","docs":"이력서, 자기소개서, 주민등록등본, 최종학력 증명서","contact":"jmh7173@hanmail.net","address":"","homepage":"","denomination":"","presbytery":"","start":"11월 첫 주 또는 협의","summary":"경기도 평택시 송탄동성교회에서 전임전도사 또는 교육목사 1명을 청빙. 행정·교육부서 담당, 사택 제공. 11월 첫 주 사역 시작, 청빙시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9277,"title":"금당남부교회에서 목회 동역자(영어예배부 담당)를 청빙합니다","date":"2026-09-15 16:25:19","views":1738,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=7&w_id=24466&m=","status":"open","church":"금당남부교회","region":"전남 순천시","role":"목회 동역자 1명","employment":"준전임/파트","dept":"영어예배부","pay":"면접 시 상의","deadlineText":"청빙시까지","qual":"본 교단 신대원(M.Div) 졸업, 목사 또는 안수예정자, 30~42세 기혼자","docs":"이력서, 자기소개서, 신대원 졸업증명서, 가족관계증명서, 개인정보 수집동의서","contact":"aksrud83@naver.com / 061-725-1900, 010-6437-4650 (김만경 목사)","address":"전남 순천시 대석4길 13","homepage":"www.gdnbch.net","denomination":"대한예수교장로회(통합)","presbytery":"순천남노회","start":"unknown","summary":"전남 순천시 금당남부교회(예장통합·순천남노회)에서 영어예배부 담당 목회 동역자 1명(준전임 또는 파트)을 청빙. 30~42세 기혼, 신대원 졸업 목사·안수예정자. 청빙시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9276,"title":"베트남 호치민 참조은 광성교회 전임사역자(부목사, 전임전도사)를 청빙합니다.","date":"2026-09-15 15:56:58","views":1552,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=7&w_id=24465&m=","status":"open","church":"참조은광성교회","region":"해외","role":"부목사 또는 전임전도사 1명","employment":"전임","dept":"교구 및 교회 사역 전반","pay":"면접 시 안내, 베트남 체류 지원, 연 1회 휴가비(항공료), 퇴직금","deadlineText":"청빙시까지","qual":"해외 한인·현지 선교 소명자, 예장통합 인준 신대원 졸업(예정), 84년 이후 출생 남성 기혼자 또는 만 45~55세 여성 독신자","docs":"이력서, 신대원 졸업증명서, 목사안수증명서, 자기소개서, 가족관계증명서","contact":"younchanyoung@gmail.com / +84 036-545-9308 (윤찬영 목사)","address":"베트남 호치민","homepage":"blog.naver.com/bacsimoon","denomination":"예장통합","presbytery":"","start":"unknown","summary":"베트남 호치민 참조은광성교회(예장통합)에서 풀타임 부목사 또는 전임전도사 1명을 청빙. 교구·교회 사역 전반, 체류 지원·연 1회 항공료·퇴직금. 청빙시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9275,"title":"일곡중앙교회에서 교육전도사, 부목사/전임전도사 모십니다.","date":"2026-09-15 15:26:00","views":1671,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=7&w_id=24464&m=","status":"open","church":"일곡중앙교회","region":"광주광역시 북구","role":"교육전도사 2명, 부목사/전임전도사 1명","employment":"전임","dept":"교육부서","pay":"교회 내규 (상담 후 결정)","deadlineText":"충원 시 까지","qual":"교육전도사: 신학교 학부 재학·졸업, 부목사/전임전도사: 신학교(학부·신대원) 졸업","docs":"이력서, 자기소개서, MBTI 결과","contact":"kgt9422@naver.com / 062-572-4271","address":"광주광역시 북구 일곡로49번길 55","homepage":"","denomination":"대한예수교장로회(통합)","presbytery":"광주동노회","start":"2027년","summary":"광주광역시 북구 일곡중앙교회(예장통합·광주동노회)에서 교육전도사 2명과 부목사/전임전도사 1명을 청빙. 2027년 사역 시작, 충원 시까지 이메일 접수.","deadline_parsed":"unknown"},{"n":9272,"title":"순천중앙교회에서 부목사(전임전도사)를 청빙합니다.","date":"2026-09-14 09:48:19","views":1741,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=8&w_id=24455&m=","status":"open","church":"순천중앙교회","region":"전남 순천시","role":"부목사(전임전도사) 1명","employment":"전임","dept":"교구 (찬양인도 우대)","pay":"교회 규정(호봉제), 사택(아파트) 제공, 총회연금 50%, 명절·휴가비, 퇴직금","deadlineText":"청빙완료시","qual":"목사 또는 안수예정자","docs":"이력서 및 자기소개서, 설교동영상 1편","contact":"truemean@naver.com / 010-2652-3942 (전재홍 목사)","address":"전라남도 순천시 서문성터길 20","homepage":"www.scjungang.com","denomination":"예장통합","presbytery":"순천노회","start":"협의 가능","summary":"전남 순천시 순천중앙교회(예장통합·순천노회)에서 부목사(전임전도사) 1명을 청빙. 교구 담당(찬양인도 우대), 호봉제·사택·총회연금 50%. 이메일 접수.","deadline_parsed":"unknown"},{"n":9270,"title":"진천중앙교회에서 교육전도사님을 모십니다(부목사 청빙완료)","date":"2026-09-12 20:29:50","views":1400,"url":"https://ministry.htus.ac.kr/board/board.php?b_id=ministry_009&page=8&w_id=24453&m=","status":"open","church":"진천중앙교회","region":"충북 진천군","role":"교육전도사 1명","employment":"unknown","dept":"교육부서 (유아·유치부)","pay":"교회 내규 (기본사례비, 장학금 일부, 교통비)","deadlineText":"충원시까지","qual":"영혼 사랑과 복음의 열정이 있는 분","docs":"이력서, 자기소개서","contact":"ysilj@naver.com / 010-7444-0817","address":"충청북도 진천군 진천읍 진광로 100","homepage":"www.jungangch.net","denomination":"대한예수교장로회 통합","presbytery":"충청노회","start":"청빙 후 결정","summary":"충북 진천군 진천중앙교회(예장통합·충청노회)에서 교육부서(유아·유치부) 교육전도사 1명을 청빙. 기본사례비·장학금·교통비. 충원 시까지 이메일 접수. (부목사는 청빙 완료)","deadline_parsed":"unknown"}];
+var TODAY = "2026-10-12";
+var PAGE = 30;
+
+function isUnknown(v){ return !v || (typeof v==="string" && (v.trim()==="" || /^unknown\b/i.test(v.trim()) || /^not stated$/i.test(v.trim()))); }
+function clean(v){ return isUnknown(v) ? "" : String(v).replace(/\s*\(한글표기 해독\)/g,"").trim(); }
+function parseDate(s){ if(isUnknown(s)) return null; var m=String(s).match(/(\d{4})-(\d{2})-(\d{2})/); return m? m[0] : null; }
+function dayDiff(a,b){ return Math.round((new Date(a+"T00:00:00") - new Date(b+"T00:00:00"))/86400000); }
+
+/* ---------- derived classification ---------- */
+function roleCats(p){
+  var t=(p.role||"")+" "+(p.title||""), out=[];
+  if(/담임목사/.test(t)) out.push("담임목사");
+  if(/부목사/.test(t)) out.push("부목사");
+  if(/전임전도사/.test(t)) out.push("전임전도사");
+  if(/교육전도사|교육목사/.test(t)) out.push("교육전도사(파트)");
+  if(/찬양|지휘자|반주자|솔리스트|음악사역/.test(t)) out.push("찬양사역자");
+  if(/행정|사무|미디어|간사/.test(t)) out.push("행정·사무");
+  if(!out.length) out.push("기타");
+  return out;
+}
+function typeCats(p){
+  var t=(p.employment||"")+" "+(p.role||"")+" "+(p.title||""), out=[];
+  if(/파트/.test(t)) out.push("파트");
+  if(/준전임/.test(t)) out.push("준전임");
+  if(/전임/.test(t) && !/준전임/.test((p.employment||""))) out.push("전임");
+  return out;
+}
+function deptCats(p){
+  var t=(p.dept||"")+" "+(p.title||""), out=[];
+  var map=[["교구",/교구/],["청년부",/청년/],["찬양",/찬양|찬양대|지휘|반주|솔리스트|음악/],["유치부",/유치|유아부|유년/],
+           ["아동부",/아동|초등|소년부|어린이|어와나/],["청소년부",/청소년|중고등|중등부|고등부/],["중고등부",/중고등|중등부|고등부/],
+           ["행정",/행정|사무|미디어|영상/],["교육부서",/교육부|교육 총괄|교육부총괄/]];
+  for(var i=0;i<map.length;i++){ if(map[i][1].test(t)) out.push(map[i][0]); }
+  return out;
+}
+function monthlyMax(p){
+  var t=(p.pay||"")+" "+(p.summary||""), best=0, m;
+  var re=/(\d{2,4})\s*만원/g;
+  while((m=re.exec(t))){ var v=parseInt(m[1],10); if(v>=50 && v<=1000 && v>best) best=v; }
+  var re2=/연봉\s*(\d{3,5})\s*만원/g;
+  while((m=re2.exec(t))){ var y=Math.round(parseInt(m[1],10)/12); if(y>best) best=y; }
+  return best;
+}
+function payFlags(p){
+  var t=(p.pay||"")+" "+(p.summary||""), out=[];
+  if(/사택|주거|아파트 제공|관리비/.test(t)) out.push("사택·주거 지원");
+  if(/4대보험|건강보험|국민연금|고용보험/.test(t)) out.push("4대보험");
+  var mm=monthlyMax(p);
+  if(mm>=150) out.push("월 150만원 이상");
+  if(mm>=200) out.push("월 200만원 이상");
+  if(mm>=250) out.push("월 250만원 이상");
+  if(/주일만|주일 오전|주일오전/.test(t)) out.push("주일만 사역");
+  return out;
+}
+POSTS.forEach(function(p){
+  p.dateOnly = parseDate(p.date) || "";
+  p.closed = /CLOSED|청빙완료|청빙 완료|종료/.test((p.status||"")+" "+(p.title||"")) && !/청빙완료까지|청빙 완료시까지|청빙 완료 시까지/.test(p.title||"");
+  if((p.status||"").indexOf("CLOSED")>=0) p.closed=true;
+  p.deadline = parseDate(p.deadline_parsed);
+  p.roles = roleCats(p); p.types = typeCats(p); p.depts = deptCats(p); p.pays = payFlags(p);
+  p.isNew = p.dateOnly && dayDiff(p.dateOnly,"2026-10-05")>=0;
+});
+
+/* ---------- state ---------- */
+var favs = {};
+try{ (JSON.parse(localStorage.getItem("honam-favs")||"[]")).forEach(function(n){ favs[n]=true; }); }catch(e){}
+function saveFavs(){ try{ localStorage.setItem("honam-favs", JSON.stringify(Object.keys(favs).map(Number))); }catch(e){} }
+var state = { q:"", role:{}, type:{}, region:{}, dept:{}, pay:{}, onlyOpen:true, onlyFav:false, sort:"latest", shown:PAGE };
+
+var ROLE_ORDER=["담임목사","부목사","전임전도사","교육전도사(파트)","찬양사역자","행정·사무","기타"];
+var TYPE_ORDER=["전임","준전임","파트"];
+var REGION_ORDER=["서울","경기","인천","강원","충북","충남","대전","세종","전북","전남","광주","경북","경남","대구","울산","부산","제주","해외"];
+var DEPT_ORDER=["교구","청년부","찬양","유치부","아동부","청소년부","중고등부","행정","교육부서"];
+var PAY_ORDER=["사택·주거 지원","4대보험","월 150만원 이상","월 200만원 이상","월 250만원 이상","주일만 사역"];
+
+function provinceOf(p){
+  var r=(p.region||"");
+  for(var i=0;i<REGION_ORDER.length;i++){ if(r.indexOf(REGION_ORDER[i])===0 || r.indexOf(REGION_ORDER[i])>=0 && i<2) return REGION_ORDER[i]; }
+  var m=r.match(/^(전남|전라남도|광주|전북|전라북도|경기도|제주|부산|울산|대구|서울|강원|경남|경북|대전|세종|충북|충남|인천)/);
+  if(m){ return m[1].replace("전라남도","전남").replace("전라북도","전북").replace("경기도","경기").replace("제주특별자치도","제주").replace("강원특별자치도","강원"); }
+  return "";
+}
+POSTS.forEach(function(p){ p.province = provinceOf(p); });
+
+function countsFor(key, order){
+  var c={}, i, v;
+  POSTS.forEach(function(p){ var vals = key==="region" ? (p.province?[p.province]:[]) : p[key]; vals.forEach(function(v){ c[v]=(c[v]||0)+1; }); });
+  return order.filter(function(v){ return c[v]>0; }).map(function(v){ return {v:v,c:c[v]}; });
+}
+
+/* ---------- filter UI ---------- */
+var FGROUPS=[
+  {name:"직분", key:"roles", order:ROLE_ORDER, stateKey:"role"},
+  {name:"형태", key:"types", order:TYPE_ORDER, stateKey:"type"},
+  {name:"지역", key:"region", order:REGION_ORDER, stateKey:"region"},
+  {name:"부서", key:"depts", order:DEPT_ORDER, stateKey:"dept"},
+  {name:"대우", key:"pays", order:PAY_ORDER, stateKey:"pay"}
+];
+function renderFilters(){
+  var el=document.getElementById("filters"), html="";
+  FGROUPS.forEach(function(g){
+    var items=countsFor(g.key==="region"?"region":g.key, g.order);
+    if(!items.length) return;
+    html+='<div class="fgroup"><span class="gname">'+g.name+'</span><span class="chips">';
+    items.forEach(function(it){
+      var on=!!state[g.stateKey][it.v];
+      html+='<button type="button" class="chip" data-g="'+g.stateKey+'" data-v="'+escapeHtml(it.v)+'" aria-pressed="'+on+'">'+escapeHtml(it.v)+'<span class="cnt">'+it.c+'</span></button>';
+    });
+    html+='</span></div>';
+  });
+  html+='<div class="frow">'
+    +'<label class="check"><input type="checkbox" id="onlyOpen" '+(state.onlyOpen?"checked":"")+'> 초빙 중인 것만</label>'
+    +'<label class="check"><input type="checkbox" id="onlyFav" '+(state.onlyFav?"checked":"")+'> ★ 관심 공고만</label>'
+    +'<span class="fcount" id="fcount"></span>'
+    +'<button type="button" class="mycondbtn" id="mycondBtn" aria-expanded="false">내 조건</button>'
+    +'<span class="sortsel"><label for="sort" style="font-size:13px;color:var(--muted);font-weight:600">정렬</label>'
+    +'<select id="sort"><option value="latest"'+(state.sort==="latest"?" selected":"")+'>최신순</option><option value="deadline"'+(state.sort==="deadline"?" selected":"")+'>마감 임박순</option></select>'
+    +'<button type="button" class="clearbtn" id="clearBtn">조건 지우기</button></span></div>';
+  el.innerHTML=html;
+  el.querySelectorAll(".chip").forEach(function(b){
+    b.addEventListener("click", function(){
+      var g=b.getAttribute("data-g"), v=b.getAttribute("data-v");
+      if(state[g][v]) delete state[g][v]; else state[g][v]=true;
+      state.shown=PAGE; renderFilters(); renderRegions(); renderList();
+    });
+  });
+  document.getElementById("mycondBtn").addEventListener("click", function(){
+    var panel=document.getElementById("mycondPanel"), open=panel.classList.toggle("open");
+    this.setAttribute("aria-expanded", open?"true":"false");
+    if(open) panel.scrollIntoView({behavior:"smooth", block:"nearest"});
+  });
+  syncMycondBtn();
+  document.getElementById("onlyOpen").addEventListener("change", function(e){ state.onlyOpen=e.target.checked; state.shown=PAGE; renderList(); });
+  document.getElementById("onlyFav").addEventListener("change", function(e){ state.onlyFav=e.target.checked; state.shown=PAGE; renderList(); });
+  document.getElementById("sort").addEventListener("change", function(e){ state.sort=e.target.value; state.shown=PAGE; renderList(); });
+  document.getElementById("clearBtn").addEventListener("click", clearConditions);
+}
+function clearConditions(){
+  var mc=state.mycond||null;
+  state={ q:"", role:{}, type:{}, region:{}, dept:{}, pay:{}, onlyOpen:true, onlyFav:false, sort:"latest", shown:PAGE, mycond:mc };
+  document.getElementById("q").value="";
+  renderFilters(); renderRegions(); renderList();
+}
+function renderRegions(){
+  var el=document.getElementById("regions");
+  var items=countsFor("region", REGION_ORDER).sort(function(a,b){ return b.c-a.c; }).slice(0,8);
+  var html='<span class="rname">지역별 한눈에</span>';
+  items.forEach(function(it){
+    html+='<button type="button" class="rbtn" data-r="'+escapeHtml(it.v)+'">'+escapeHtml(it.v)+' '+it.c+'건</button>';
+  });
+  el.innerHTML=html;
+  el.querySelectorAll(".rbtn").forEach(function(b){
+    b.addEventListener("click", function(){
+      state.region={}; state.region[b.getAttribute("data-r")]=true; state.shown=PAGE;
+      renderFilters(); renderList();
+      document.getElementById("cards").scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  });
+}
+
+/* ---------- filtering / list ---------- */
+function selSet(obj){ return Object.keys(obj); }
+function matchAny(vals, sel){ if(!sel.length) return true; for(var i=0;i<vals.length;i++){ if(sel.indexOf(vals[i])>=0) return true; } return false; }
+function matchMyCond(p){
+  var mc=state.mycond; if(!mc) return true;
+  if(mc.role && p.roles.indexOf(mc.role)<0) return false;
+  if(mc.region && p.province!==mc.region) return false;
+  if(mc.pay>0 && monthlyMax(p)<mc.pay) return false;
+  if(mc.age>0){
+    var t=((p.qual||"")+" "+(p.title||"")+" "+(p.summary||""));
+    var m=t.match(/(\d{2})\s*세\s*(이하|미만|까지)/);
+    if(m){ var lim=parseInt(m[1],10); if(m[2]==="미만") lim-=1; if(mc.age>lim) return false; }
+  }
+  return true;
+}
+function filtered(){
+  var q=state.q.trim().toLowerCase();
+  var out=POSTS.filter(function(p){
+    if(state.onlyOpen && p.closed) return false;
+    if(state.onlyFav && !favs[p.n]) return false;
+    if(!matchMyCond(p)) return false;
+    if(!matchAny(p.roles, selSet(state.role))) return false;
+    if(!matchAny(p.types, selSet(state.type))) return false;
+    if(!matchAny(p.province?[p.province]:[], selSet(state.region))) return false;
+    if(!matchAny(p.depts, selSet(state.dept))) return false;
+    if(!matchAny(p.pays, selSet(state.pay))) return false;
+    if(q){
+      var hay=((p.church||"")+" "+(p.title||"")+" "+(p.region||"")+" "+(p.dept||"")+" "+(p.role||"")+" "+(p.summary||"")+" "+(p.address||"")).toLowerCase();
+      if(hay.indexOf(q)<0) return false;
+    }
+    return true;
+  });
+  if(state.sort==="deadline"){
+    out.sort(function(a,b){
+      if(a.deadline && b.deadline) return a.deadline<b.deadline?-1:1;
+      if(a.deadline) return -1; if(b.deadline) return 1;
+      return b.dateOnly<a.dateOnly?-1:1;
+    });
+  } else {
+    out.sort(function(a,b){ return b.dateOnly<a.dateOnly?-1:(b.dateOnly>a.dateOnly?1:b.n-a.n); });
+  }
+  return out;
+}
+function ddayBadge(p){
+  if(p.closed) return '<span class="dday soon">청빙완료</span>';
+  if(p.deadline){
+    var d=dayDiff(p.deadline, TODAY);
+    if(d<0) return '<span class="dday soon">마감 지남 · 원문 확인</span>';
+    if(d===0) return '<span class="dday soon">D-day · 오늘 마감</span>';
+    return '<span class="dday'+(d<=7?" soon":"")+'">D-'+d+' · '+p.deadline+' 마감</span>';
+  }
+  var t=(p.deadlineText||"");
+  if(/청빙시까지|청빙완료|청빙 완료|청빙 시까지|모집시까지|모집 완료|사역자 청빙까지/.test(t)) return '<span class="dday always">청빙 시까지</span>';
+  return '<span class="dday always">마감 원문 확인</span>';
+}
+function isUrgent(p){
+  if(p.closed || !p.deadline) return false;
+  var d=dayDiff(p.deadline, TODAY);
+  return d>=0 && d<=7;
+}
+function urgentBadge(p){
+  var d=dayDiff(p.deadline, TODAY);
+  return '<span class="badge urgent">마감 임박 '+(d===0?"D-day":"D-"+d)+'</span>';
+}
+function shareText(p){
+  var church=clean(p.church)||"";
+  return "[호남신학대 청빙 도우미] "+(church?church+" · ":"")+(p.title||"")+"\n"+(p.url||"");
+}
+var toastTimer=null;
+function showToast(msg){
+  var t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){ t.classList.remove("show"); }, 3200);
+}
+function sharePost(n){
+  var p=null; POSTS.forEach(function(x){ if(x.n===n) p=x; });
+  if(!p) return;
+  var text=shareText(p);
+  function done(){ showToast("공고가 복사됐습니다. 카카오톡에 붙여넣기 하세요."); }
+  function fallback(){
+    var ta=document.createElement("textarea");
+    ta.value=text; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); done(); }
+    catch(e){ showToast("복사에 실패했습니다. 원문 링크를 직접 복사해 주세요."); }
+    document.body.removeChild(ta);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, fallback);
+  } else fallback();
+}
+function payChip(p){
+  var s=clean(p.pay); if(!s) return "";
+  var first=s.split(/[,;·]/)[0].trim();
+  if(first.length>26) first=first.slice(0,26)+"…";
+  return '<span class="tag">'+escapeHtml(first)+'</span>';
+}
+function cardHtml(p){
+  var tags="";
+  p.roles.slice(0,2).forEach(function(v){ tags+='<span class="tag">'+escapeHtml(v)+'</span>'; });
+  p.types.slice(0,1).forEach(function(v){ tags+='<span class="tag">'+escapeHtml(v)+'</span>'; });
+  p.depts.slice(0,2).forEach(function(v){ tags+='<span class="tag">'+escapeHtml(v)+'</span>'; });
+  tags+=payChip(p);
+  var church = clean(p.church) || (p.title||"").replace(/에서.*$/,"").replace(/교회에서.*$/,"교회");
+  return '<article class="card" data-n="'+p.n+'" tabindex="0" role="button" aria-label="'+escapeHtml(p.title)+' 상세 보기">'
+    +'<button type="button" class="star'+(favs[p.n]?" on":"")+'" data-star="'+p.n+'" aria-label="관심 공고 토글">'+(favs[p.n]?"★":"☆")+'</button>'
+    +'<div class="church">'+escapeHtml(church)+' <span class="region">'+escapeHtml(clean(p.region)||p.province||"")+'</span>'
+    +(isUrgent(p)?urgentBadge(p):"")+(p.isNew && !p.closed?'<span class="badge new">NEW</span>':"")+(p.closed?'<span class="badge closed">청빙완료</span>':"")+'</div>'
+    +'<div class="title">'+escapeHtml(p.title)+'</div>'
+    +'<div class="meta">'+tags+'</div>'
+    +'<p class="summary">'+escapeHtml(clean(p.summary))+'</p>'
+    +'<div class="foot">'+ddayBadge(p)+'<span>'+escapeHtml(p.dateOnly)+' 게시</span><span>조회 '+Number(p.views||0).toLocaleString()+'</span>'
+    +'<button type="button" class="sharebtn" data-share="'+p.n+'">카톡 공유</button></div>'
+    +'</article>';
+}
+function bindCards(root){
+  root.querySelectorAll(".card").forEach(function(c){
+    c.addEventListener("click", function(){ openPost(Number(c.getAttribute("data-n"))); });
+    c.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openPost(Number(c.getAttribute("data-n"))); } });
+  });
+  root.querySelectorAll("[data-star]").forEach(function(b){
+    b.addEventListener("click", function(e){ e.stopPropagation(); toggleFav(Number(b.getAttribute("data-star"))); });
+  });
+  root.querySelectorAll("[data-share]").forEach(function(b){
+    b.addEventListener("click", function(e){ e.stopPropagation(); sharePost(Number(b.getAttribute("data-share"))); });
+  });
+}
+function renderList(){
+  var list=filtered();
+  var el=document.getElementById("cards");
+  el.innerHTML=list.slice(0,state.shown).map(cardHtml).join("");
+  document.getElementById("listCount").textContent=list.length+"건";
+  var fc=document.getElementById("fcount"); if(fc) fc.textContent=list.length+"건";
+  document.getElementById("emptyBox").innerHTML = list.length? "" :
+    '<div class="empty">조건에 맞는 공고가 없습니다.<br>필터를 줄이거나 ‘조건 지우기’를 눌러 보세요.</div>';
+  var mb=document.getElementById("moreBtn");
+  mb.style.display = list.length>state.shown ? "block":"none";
+  bindCards(el);
+  renderUrgent(list);
+  renderMcActive();
+}
+function renderUrgent(list){
+  var sec=document.getElementById("urgentSec");
+  var urg=list.filter(isUrgent).sort(function(a,b){ return a.deadline<b.deadline?-1:(a.deadline>b.deadline?1:b.n-a.n); });
+  if(!urg.length){ sec.hidden=true; document.getElementById("urgentCards").innerHTML=""; return; }
+  sec.hidden=false;
+  document.getElementById("urgentCount").textContent=urg.length+"건 · 7일 안에 마감";
+  var uc=document.getElementById("urgentCards");
+  uc.innerHTML=urg.map(cardHtml).join("");
+  bindCards(uc);
+}
+function toggleFav(n){
+  if(favs[n]) delete favs[n]; else favs[n]=true;
+  saveFavs(); renderList();
+  var ov=document.getElementById("overlay");
+  if(ov.classList.contains("open")) renderModal(n);
+}
+function renderStats(){
+  var open=POSTS.filter(function(p){ return !p.closed; });
+  document.getElementById("stOpen").textContent=open.length;
+  document.getElementById("stNew").textContent=POSTS.filter(function(p){ return p.dateOnly && dayDiff(p.dateOnly,"2026-10-05")>=0 && dayDiff(p.dateOnly,TODAY)<=0; }).length;
+  document.getElementById("stFull").textContent=open.filter(function(p){ return p.types.indexOf("전임")>=0; }).length;
+  document.getElementById("stDue").textContent=open.filter(function(p){ if(!p.deadline) return false; var d=dayDiff(p.deadline,TODAY); return d>=0 && d<=7; }).length;
+}
+
+/* ---------- modal ---------- */
+function known(v){ var s=clean(v); return s? escapeHtml(s) : '<span style="color:var(--muted)">원문에서 확인해 주세요</span>'; }
+function homepageLink(p){
+  var h=clean(p.homepage); if(!h) return "";
+  var url=/^https?:\/\//.test(h)? h : "https://"+h.replace(/^www\./,"www.");
+  return ' · <a href="'+escapeHtml(url)+'" target="_blank" rel="noopener">교회 홈페이지</a>';
+}
+function bodyText(p){
+  var lines=[];
+  function add(k,v){ var s=clean(v); if(s) lines.push(k+" : "+s); }
+  add("교회명", p.church); add("교단명", p.denomination); add("노회명", p.presbytery);
+  add("교회주소", p.address); add("모집부서", (p.role||"")+(p.dept? " / "+clean(p.dept):""));
+  add("지원자격", p.qual); add("제출서류", p.docs); add("제출기한", p.deadlineText);
+  add("사례비", p.pay); add("제출처", p.contact); add("사역시작", p.start);
+  if(!lines.length) lines.push("게시글 본문 항목을 이 화면에서 다 옮기지 못했습니다. 아래 ‘호남신학대 게시판 원문 보기’에서 확인해 주세요.");
+  return lines.join("\n");
+}
+function openPost(n){
+  renderModal(n);
+  try{
+    if(location.hash!=="#post/"+n){
+      if(history.pushState) history.pushState("", document.title, "#post/"+n);
+      else location.hash="post/"+n;
+    }
+  }catch(e){}
+}
+function closeModal(){
+  document.getElementById("overlay").classList.remove("open");
+  document.getElementById("modal").innerHTML="";
+  if(location.hash) history.pushState("", document.title, location.pathname+location.search);
+}
+function notStated(){ return '<span class="notstated">공고에 적혀 있지 않음</span>'; }
+function splitItems(v, dotSep){
+  var s=clean(v); if(!s) return [];
+  var parts=[], cur="", depth=0;
+  for(var i=0;i<s.length;i++){
+    var ch=s.charAt(i);
+    if(ch==="(") depth++;
+    if(ch===")") depth=Math.max(0, depth-1);
+    if(depth===0 && (ch==="," || ch===";" || ch==="\n" || (dotSep && ch==="·"))){ parts.push(cur); cur=""; }
+    else cur+=ch;
+  }
+  parts.push(cur);
+  return parts.map(function(x){ return x.trim(); }).filter(function(x){ return x.length>0; });
+}
+function linkify(text){
+  return escapeHtml(text).replace(/([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})/g, '<a href="mailto:$1">$1</a>');
+}
+function condChips(p){
+  var t=[clean(p.qual), clean(p.summary), clean(p.title), clean(p.role)].join(" ");
+  var chips=[], seen={};
+  function add(c){ if(c && !seen[c]){ seen[c]=1; chips.push(c); } }
+  var m;
+  if(m=t.match(/만\s*(\d{2})\s*[~\-–]\s*(\d{2})\s*세/)) add("만 "+m[1]+"~"+m[2]+"세");
+  else if(m=t.match(/(\d{2})\s*[~\-–]\s*(\d{2})\s*세/)) add(m[1]+"~"+m[2]+"세");
+  else if(m=t.match(/만\s*(\d{2})\s*세\s*(이하|미만|까지)/)) add("만 "+m[1]+"세 "+m[2]);
+  else if(m=t.match(/(\d{2})\s*세\s*(이하|미만|까지)/)) add(m[1]+"세 "+m[2]);
+  else if(m=t.match(/(\d{2})\s*세\s*전후/)) add(m[1]+"세 전후");
+  else if(m=t.match(/(\d{2})대\s*(초반|중반|후반|전후|이상|이하)/)) add(m[1]+"대 "+m[2]);
+  else if(m=t.match(/(\d{2})대(?!만)/)) add(m[1]+"대");
+  if(m=t.match(/안수\s*후\s*(\d+)\s*년\s*이상/)) add("목사 안수 후 "+m[1]+"년 이상");
+  if(/목사\s*안수자|안수\s*받은\s*목사|안수자/.test(t)) add("목사 안수자");
+  if(/기혼자\s*만|기혼\s*조건|기혼자/.test(t)) add("기혼자만");
+  else if(/기혼/.test(t)) add("기혼자");
+  if(m=t.match(/(?:사역|목회|담임)?\s*경력\s*(\d+)\s*년\s*이상/)) add("사역 경력 "+m[1]+"년 이상");
+  if(/신학대학원\s*(졸업|수료)|신대원\s*졸업/.test(t)) add("신대원 졸업자");
+  else if(/M\.?Div/i.test(t)) add("M.Div 졸업자");
+  if(/졸업\s*예정/.test(t)) add("졸업예정자 가능");
+  if(/운전\s*면허|운전면허/.test(t)) add("운전면허 소지");
+  if(/찬양\s*인도\s*가능|찬양인도\s*가능/.test(t)) add("찬양인도 가능");
+  return chips.slice(0,6);
+}
+function deadlineLine(p){
+  if(p.closed) return '<span class="dday soon">청빙완료</span>';
+  var dt=clean(p.deadlineText);
+  if(p.deadline){
+    var d=dayDiff(p.deadline, TODAY);
+    var md=p.deadline.slice(5).replace("-","/");
+    var lbl = d<0 ? "마감 지남" : (d===0 ? "D-day" : "D-"+d);
+    return '<span class="dday'+(d<=7?" soon":"")+'">'+lbl+' ('+md+')</span>'+(dt? '<span class="dtext">'+escapeHtml(dt)+'</span>':"");
+  }
+  if(dt) return '<span class="dtext">'+escapeHtml(dt)+'</span>';
+  return notStated();
+}
+function renderModal(n){
+  var p=null; POSTS.forEach(function(x){ if(x.n===n) p=x; });
+  if(!p) return;
+  var church=clean(p.church)||"교회명 원문 확인";
+  var regionTxt=clean(p.region)||p.province||"";
+  var denTxt=clean(p.denomination);
+  var chips=condChips(p);
+  var addr=clean(p.address);
+  var mapQuery=addr || (church+" "+regionTxt).trim();
+  var mapUrl="https://map.kakao.com/link/search/"+encodeURIComponent(mapQuery);
+  var qualItems=splitItems(p.qual, false), docItems=splitItems(p.docs, true);
+  var metaParts=[escapeHtml(church)];
+  if(regionTxt) metaParts.push(escapeHtml(regionTxt));
+  if(denTxt) metaParts.push(escapeHtml(denTxt));
+  if(p.dateOnly) metaParts.push(escapeHtml(p.dateOnly)+" 게시");
+  metaParts.push(p.closed? '<span class="st-closed">청빙완료</span>' : '<span class="st-open">초빙중</span>');
+  var roleHtml=p.roles.map(function(r,i){ return '<span class="rolebadge'+(i>0?" sub":"")+'">'+escapeHtml(r)+'</span>'; }).join("");
+  var html='<button type="button" class="mclose" id="mClose" aria-label="닫기">✕</button>'
+    +'<div class="mmeta">'+metaParts.join('<span class="sep"> · </span>')+'</div>'
+    +'<h3 id="mTitle">'+escapeHtml(p.title)+'</h3>'
+    +'<div class="rolebadges">'+roleHtml+'</div>'
+    +'<div class="copyrow"><button type="button" class="kakaocopy" id="mCopyTop">💬 카톡용 링크 복사</button></div>'
+    +'<div class="msec"><h4>지원 조건 한눈에</h4>'
+    +(chips.length? '<div class="condchips">'+chips.map(function(c){ return '<span class="condchip">'+escapeHtml(c)+'</span>'; }).join("")+'</div>'
+                  : '<div class="secbody">'+notStated()+'</div>')
+    +'</div>'
+    +'<div class="msec"><h4>📍 교회 위치</h4><div class="locbox"><div class="locpin" aria-hidden="true">📍</div><div>'
+    +'<div class="locname">'+escapeHtml(church)+(regionTxt? '<span class="locregion">'+escapeHtml(regionTxt)+'</span>':"")+'</div>'
+    +(addr? '<div class="locaddr">'+escapeHtml(addr)+'</div>' : '<div class="locaddr">'+notStated()+'</div>')
+    +'<a class="kakaomap" href="'+mapUrl+'" target="_blank" rel="noopener">카카오맵에서 보기</a>'
+    +'</div></div></div>'
+    +'<div class="msec"><h4>공고 요약</h4>'+(clean(p.summary)? '<p class="msummary">'+escapeHtml(clean(p.summary))+'</p>' : '<div class="secbody">'+notStated()+'</div>')+'</div>'
+    +'<div class="msec"><h4>마감</h4><div class="secbody"><div class="dline">'+deadlineLine(p)+'</div></div></div>'
+    +'<div class="msec"><h4>자격 조건</h4><div class="secbody">'
+    +(qualItems.length? '<ul>'+qualItems.map(function(x){ return '<li>'+escapeHtml(x)+'</li>'; }).join("")+'</ul>' : notStated())
+    +'</div></div>'
+    +'<div class="msec"><h4>대우</h4><div class="secbody">'+(clean(p.pay)? escapeHtml(clean(p.pay)) : notStated())+'</div></div>'
+    +'<div class="msec"><h4>제출 서류</h4><div class="secbody">'
+    +(docItems.length? '<ul>'+docItems.map(function(x){ return '<li>'+escapeHtml(x)+'</li>'; }).join("")+'</ul>' : notStated())
+    +'</div></div>'
+    +'<div class="msec"><h4>접수 방법</h4><div class="secbody">'+(clean(p.contact)? linkify(clean(p.contact)) : notStated())+'</div></div>'
+    +'<div class="msec"><h4>교단</h4><div class="secbody">'
+    +(denTxt? escapeHtml(denTxt)+(clean(p.presbytery)? ' · '+escapeHtml(clean(p.presbytery)) : '')+homepageLink(p) : notStated())
+    +'</div></div>'
+    +'<div class="msec"><h4>공고 본문 보기</h4>'
+    +'<button type="button" class="togglebody" id="bodyToggle" aria-expanded="false">본문 펼치기</button>'
+    +'<div class="bodybox" id="bodyBox" style="display:none;margin-top:10px">'+escapeHtml(bodyText(p))+'</div></div>'
+    +'<a class="origlink" href="'+escapeHtml(p.url)+'" target="_blank" rel="noopener"><span>호남신학대 게시판 원문 보기</span><span aria-hidden="true">›</span></a>'
+    +'<button type="button" class="favbig'+(favs[p.n]?" on":"")+'" id="mFav">'+(favs[p.n]?"★ 관심 공고에 담음":"☆ 관심 공고에 담기")+'</button>'
+    +'<div class="copyrow" style="margin-top:10px"><button type="button" class="kakaocopy" id="mCopyBottom">💬 카톡용 링크 복사</button></div>'
+    +'<p class="disclaimer">요약·분류는 원문을 바탕으로 자동 정리한 것이라 틀릴 수 있어요. 지원 전 반드시 원문을 확인해 주세요.</p>';
+  var modal=document.getElementById("modal");
+  modal.innerHTML=html;
+  document.getElementById("overlay").classList.add("open");
+  modal.scrollTop=0;
+  document.getElementById("mClose").addEventListener("click", closeModal);
+  document.getElementById("mFav").addEventListener("click", function(){ toggleFav(p.n); });
+  document.getElementById("mCopyTop").addEventListener("click", function(){ sharePost(p.n); });
+  document.getElementById("mCopyBottom").addEventListener("click", function(){ sharePost(p.n); });
+  document.getElementById("bodyToggle").addEventListener("click", function(){
+    var box=document.getElementById("bodyBox"), open=box.style.display!=="none";
+    box.style.display=open?"none":"block"; this.textContent=open?"본문 펼치기":"본문 접기";
+    this.setAttribute("aria-expanded", open?"false":"true");
+  });
+}
+function syncHash(){
+  var m=location.hash.match(/^#post\/(\d+)$/) || location.hash.match(/^#\/post\/(\d+)$/);
+  if(m) renderModal(Number(m[1]));
+  else { document.getElementById("overlay").classList.remove("open"); }
+}
+function escapeHtml(s){
+  return String(s==null?"":s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; });
+}
+
+/* ---------- events ---------- */
+document.getElementById("searchForm").addEventListener("submit", function(e){
+  e.preventDefault(); state.q=document.getElementById("q").value; state.shown=PAGE; renderList();
+});
+document.getElementById("q").addEventListener("input", function(e){
+  state.q=e.target.value; state.shown=PAGE; renderList();
+});
+document.getElementById("moreBtn").addEventListener("click", function(){ state.shown+=PAGE; renderList(); });
+document.getElementById("overlay").addEventListener("click", function(e){ if(e.target===this) closeModal(); });
+document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeModal(); });
+window.addEventListener("hashchange", syncHash);
+
+/* ---------- my condition ---------- */
+try{ state.mycond=JSON.parse(localStorage.getItem("honam-mycond")||"null"); }catch(e){ state.mycond=null; }
+function saveMycond(){ try{ if(state.mycond) localStorage.setItem("honam-mycond", JSON.stringify(state.mycond)); else localStorage.removeItem("honam-mycond"); }catch(e){} }
+function mcOptions(sel, order){
+  var html='<option value="">전체</option>';
+  order.forEach(function(v){ html+='<option value="'+escapeHtml(v)+'">'+escapeHtml(v)+'</option>'; });
+  sel.innerHTML=html;
+}
+function fillMcForm(){
+  var mc=state.mycond||{};
+  mcOptions(document.getElementById("mcRole"), ROLE_ORDER);
+  mcOptions(document.getElementById("mcRegion"), REGION_ORDER);
+  document.getElementById("mcRole").value=mc.role||"";
+  document.getElementById("mcRegion").value=mc.region||"";
+  document.getElementById("mcAge").value=mc.age||"";
+  document.getElementById("mcPay").value=mc.pay||"";
+}
+function mcDescribe(mc){
+  var parts=[];
+  if(mc.age) parts.push("나이 "+mc.age+"세");
+  if(mc.role) parts.push(mc.role);
+  if(mc.region) parts.push(mc.region);
+  if(mc.pay) parts.push("월 "+mc.pay+"만원 이상");
+  return parts.join(" · ");
+}
+function renderMcActive(){
+  var bar=document.getElementById("mcActive");
+  if(state.mycond){
+    bar.classList.add("on");
+    document.getElementById("mcActiveText").textContent="내 조건 적용 중: "+mcDescribe(state.mycond);
+  } else bar.classList.remove("on");
+}
+function syncMycondBtn(){
+  var b=document.getElementById("mycondBtn");
+  if(b) b.textContent=state.mycond? "내 조건 적용 중" : "내 조건";
+}
+document.getElementById("mcApply").addEventListener("click", function(){
+  var age=parseInt(document.getElementById("mcAge").value,10)||0;
+  var pay=parseInt(document.getElementById("mcPay").value,10)||0;
+  var role=document.getElementById("mcRole").value;
+  var region=document.getElementById("mcRegion").value;
+  state.mycond=(age||pay||role||region)? {age:age,pay:pay,role:role,region:region} : null;
+  saveMycond(); state.shown=PAGE;
+  document.getElementById("mycondPanel").classList.remove("open");
+  var b=document.getElementById("mycondBtn"); if(b) b.setAttribute("aria-expanded","false");
+  syncMycondBtn(); renderList();
+  showToast(state.mycond? "내 조건에 맞는 공고만 보여드립니다." : "내 조건이 해제됐습니다.");
+  document.getElementById("urgentSec").scrollIntoView({behavior:"smooth", block:"start"});
+});
+document.getElementById("mcReset").addEventListener("click", function(){
+  state.mycond=null; saveMycond(); fillMcForm(); state.shown=PAGE;
+  syncMycondBtn(); renderList();
+  showToast("내 조건이 해제됐습니다.");
+});
+document.getElementById("mcOff").addEventListener("click", function(){
+  state.mycond=null; saveMycond(); fillMcForm(); state.shown=PAGE;
+  syncMycondBtn(); renderList();
+  showToast("내 조건이 해제됐습니다.");
+});
+fillMcForm();
+
+renderStats(); renderFilters(); renderRegions(); renderList(); syncHash();
+</script>
+</body>
+</html>
