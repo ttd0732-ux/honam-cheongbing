@@ -10,6 +10,12 @@
 <meta property="og:description" content="호남신학대 청빙게시판 한눈에보기 · 매일 아침 6시경 업데이트" />
 <meta property="og:image" content="https://honam-cheongbing.vercel.app/og-image.jpg" />
 <meta property="og:type" content="website" />
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#12295e" />
+<link rel="apple-touch-icon" href="/icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="청빙 도우미" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="호남신학대 청빙 도우미" />
 <meta name="twitter:description" content="호남신학대 청빙게시판 한눈에보기 · 매일 아침 6시경 업데이트" />
@@ -864,6 +870,11 @@ document.getElementById("mcOff").addEventListener("click", function(){
 fillMcForm();
 
 renderStats(); renderFilters(); renderRegions(); renderList(); syncHash();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() { navigator.serviceWorker.register('/sw.js'); });
+}
 </script>
 </body>
 </html>
