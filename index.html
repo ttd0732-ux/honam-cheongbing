@@ -179,6 +179,12 @@ h1 .gold{color:var(--gold)}
 footer{margin-top:36px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:12.5px;line-height:1.8}
 footer b{color:var(--ink)}
 
+/* pastor app box back button */
+.pastor-box-bar{margin:14px 0 4px}
+.pastor-box-bar-bottom{margin:24px 0 0}
+.pastor-box-btn{display:block;text-align:center;background:var(--accent);color:#fff;border:2px solid var(--gold);border-radius:12px;padding:13px 16px;font-size:16px;font-weight:800;text-decoration:none;box-shadow:var(--shadow)}
+.pastor-box-btn:hover{filter:brightness(1.15)}
+
 /* modal */
 .overlay{position:fixed;inset:0;background:rgba(10,16,12,.55);z-index:80;display:none;align-items:flex-end;justify-content:center}
 .overlay.open{display:flex}
@@ -235,6 +241,7 @@ footer b{color:var(--ink)}
 </head>
 <body>
 <div class="wrap">
+  <div class="pastor-box-bar"><a class="pastor-box-btn" href="https://pastor-app-box.vercel.app">← Pastor 앱 box로 돌아가기</a></div>
   <header class="top">
     <span class="hero-kicker">HONAM THEOLOGICAL UNIVERSITY</span>
     <h1>호남신학대 <span class="gold">청빙 도우미</span></h1>
@@ -302,6 +309,8 @@ footer b{color:var(--ink)}
     자료 업데이트 날: 2026-11-09<br>
     <b>앱 문의) shs목사 · <a href="mailto:ttd0732@hanmail.net">ttd0732@hanmail.net</a></b></p>
   </footer>
+
+  <div class="pastor-box-bar pastor-box-bar-bottom"><a class="pastor-box-btn" href="https://pastor-app-box.vercel.app">← Pastor 앱 box로 돌아가기</a></div>
 </div>
 
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="mTitle">
